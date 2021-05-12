@@ -1,0 +1,6 @@
+{
+    "mongoConfig": {
+      "serverUrl": "mongodb://localhost:27017/recipe_share",
+      "database": "Recipe_Share"
+    }
+}

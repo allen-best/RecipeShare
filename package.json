@@ -1,0 +1,30 @@
+{
+  "name": "recipeshare",
+  "version": "1.0.0",
+  "description": "CS 546 Final Project where the goal for the project was to combine a few of our interests and make a website for people to post their own food and drink recipes. The user will be able to have access to an account to which they can save and share any recipe of their choosing.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allen-best/RecipeShare.git"
+  },
+  "author": "Allen Best",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allen-best/RecipeShare/issues"
+  },
+  "homepage": "https://github.com/allen-best/RecipeShare#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.2",
+    "handlebars": "^4.7.7",
+    "mongodb": "^3.6.6",
+    "uuid": "^8.3.2",
+    "xss": "^1.0.9"
+  }
+}
