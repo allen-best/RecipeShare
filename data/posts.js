@@ -4,32 +4,32 @@ const posts = mongoCollections.posts;
 const uuid = require('uuid');
 const ObjectId = require('mongodb').ObjectID;
 
-const errorThrowCreate = ( body ) => {
-    if(body.type === undefined || body.postedDate === undefined || body.name === undefined || body.servings === undefined
-        || body.time === undefined || body.tag === undefined || body.ingredients === undefined || body.steps === undefined){
-        throw 'You must provide a value for all inputs.'; 
+const errorThrowCreate = (body) => {
+    if (body.type === undefined || body.postedDate === undefined || body.name === undefined || body.servings === undefined
+        || body.time === undefined || body.tag === undefined || body.ingredients === undefined || body.steps === undefined) {
+        throw 'You must provide a value for all inputs.';
     }
-    
+
     // check for string inputs
-    if(typeof(body.type) !== "string" || typeof(body.name) !== "string" || body.type === "" || body.name === ""){
-        throw 'You must provide a valid string value for type and name.'; 
+    if (typeof (body.type) !== "string" || typeof (body.name) !== "string" || body.type === "" || body.name === "") {
+        throw 'You must provide a valid string value for type and name.';
     }
 
     // check for number inputs
-    if(typeof(body.time) !== "number" || typeof(body.servings) !== "number"){
-        throw 'You must provide a number value for time and servings'; 
+    if (typeof (body.time) !== "number" || typeof (body.servings) !== "number") {
+        throw 'You must provide a number value for time and servings';
     }
 
     // check for array inputs
-    if(!Array.isArray(body.tag) || !Array.isArray(body.ingredients) || !Array.isArray(body.steps)){
-        throw 'You must provide a array value for tag, ingredients and steps'; 
+    if (!Array.isArray(body.tag) || !Array.isArray(body.ingredients) || !Array.isArray(body.steps)) {
+        throw 'You must provide a array value for tag, ingredients and steps';
     }
 
-    if(isNaN(Date.parse(body.postedDate))) throw 'You must provide a correct date'; 
+    if (isNaN(Date.parse(body.postedDate))) throw 'You must provide a correct date';
 }
 
-const errorThrowID = ( id ) => {
-    if(id === undefined || typeof(id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: Invalid ID.'
+const errorThrowID = (id) => {
+    if (id === undefined || typeof (id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: Invalid ID.'
 }
 
 const createPost = async (body) => {
@@ -132,11 +132,23 @@ const updatePartialPost = async (id, body) => {
         { $set: body }
     );
     if (updatedInfo.modifiedCount === 0) throw 'Could not update post successfully';
-    
+
     const post = await getPost(ObjectId(id).toString());
     let updatedIdPost = post;
     updatedIdPost._id = ObjectId(updatedIdPost._id).toString();
     return updatedIdPost;
+}
+
+const searchPost = async (keyword) => {
+
+}
+
+const getRecentPost = async () => {
+
+}
+
+const getPopularPost = async () => {
+
 }
 
 module.exports = {
@@ -145,5 +157,8 @@ module.exports = {
     getPost,
     removePost,
     updatePost,
-    updatePartialPost
+    updatePartialPost,
+    searchPost,
+    getRecentPost,
+    getPopularPost
 }
