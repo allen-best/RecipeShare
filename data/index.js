@@ -1,7 +1,9 @@
-const bookData = require('./books');
-const reviewData = require('./reviews');
+const commentData = require('./comments');
+const likeData = require('./likes');
+const postData = require('./posts');
 
 module.exports = {
-    reviewData: reviewData,
-    bookData: bookData
+    commentData: commentData,
+    likeData: likeData,
+    postData: postData
 };
