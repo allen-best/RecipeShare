@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const saltRounds = 16;
-const userDB = require('../data/users.js');
+// const userDB = require('../data/users.js');
 
 router.post('/', async (req, res) => {
 
