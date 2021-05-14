@@ -28,7 +28,7 @@
         let id = post._id;
         let time = new Date(post.postedDate).toLocaleString('English', { hour12: false });
         let likes = post.likes.length;
-        let newItem = $(`<li>${name} &emsp; type: ${type} &emsp; ${likes} likes &emsp; ${time} &emsp; <a href='/view/${id}'>View</a></li>`);
+        let newItem = $(`<li>${name} &emsp; type: ${type} &emsp; ${likes} likes &emsp; ${time} &emsp; <a href='/view/${id}'>View</a>   </li>`);
         return newItem;
     }
 
@@ -68,10 +68,8 @@
                     let likes = post.likes.length;
                     let servings = post.servings;
                     let timeNeeded = post.time;
-                    //let tag = post.tag;
                     let newItem = $(`<li>${name} &emsp; type: ${type} &emsp; ${likes} likes &emsp; 
-                    ${time} &emsp; ${servings}servings &emsp; time needed: ${timeNeeded} &emsp; <a href='/view/${id}'>View</a></li>`);
-
+                    ${servings}servings &emsp; time needed: ${timeNeeded} &emsp; ${time} &emsp; <a href='/view/${id}'>View</a> </li>`);
                     $('#resultList').append(newItem);
                 }
                 }
