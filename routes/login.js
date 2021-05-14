@@ -6,34 +6,31 @@ const saltRounds = 16;
 
 router.get('/', async (req, res) => {
     try {
-        res.render('page/login', {});
+        res.render('page/login', { scriptFile: '<script src="/public/js/login.js"></script>' });
     } catch (e) {
         res.status(404);
     }
 });
 router.post('/', async (req, res) => {
-
-    /*
     const { username, password } = req.body;
+
     let authenticated = false;
-    for(let i = 0; i < userDB.length; i++) {
-        if (userDB[i].username === username) {
-            if (await bcrypt.compare(password, userDB[i].hashedPassword)){
-                authenticated = true;
-                break;
-            }
-        }
+    //check the username and password
+    if (username === '1111' & password === '2222') {
+        authenticated = true;
     }
-    if(authenticated === true) {
-        req.session.user = username;
-        res.redirect('/private');
+
+    console.log(username);
+    console.log(password);
+
+
+
+    if (authenticated === true) {
+        req.session.user = { username: username, userid: 'test id' }; //update later
+        res.json({ status: 'login_success' });
     } else {
-        res.status(401);
-        res.render('page/form', { errorMessage: "Please provide a valid username and/or password!" });
+        res.json({ status: 'login_fail' });
     }
-    */
-
 });
-
 
 module.exports = router;

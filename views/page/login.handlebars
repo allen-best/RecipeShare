@@ -1,14 +1,14 @@
 <div>
     <h1>Login</h1>
-    <form id="login-form" method="post" action='/login'>
+    <form id="loginForm">
         <div>
             <label for='username'>username:</label>
-            <input name='username' id='username' type='text'>
+            <input name='username' id='username' type='text' required>
         </div>
 
         <div>
             <label for='password'>password:</label>
-            <input name='password' id='password' type='text'>
+            <input name='password' id='password' type='password' required>
         </div>
         <div>
             <button type="submit">Sign in</button>
@@ -16,6 +16,6 @@
 
     </form>
 
-    <div id="error" class="error">{{errorMessage}}</div>
+    <div id="errorMsg" class="error"></div>
     <a href= "/register">Click here to register.</a>
 </div>
