@@ -11,7 +11,7 @@ const main = async () => {
     await db.dropDatabase();
 
     let whiskeySour = await posts.createPost({"type": "Drink",
-        "postedDate": "1/1/2021", 
+        "postedDate": new Date(new Date()-10*60*60*1000), 
         "name": "Whiskey Sour", 
         "servings": 1, 
         "time": 5,
@@ -22,7 +22,7 @@ const main = async () => {
         "Strain cocktail through a Hawthorne strainer or a slotted spoon into an old-fashioned or rocks glass filled with ice. Garnish with orange wheel and cherry."]});
 
     let burger = await posts.createPost({"type": "Food",
-        "postedDate": "1/1/2021", 
+        "postedDate": new Date(new Date()-15*60*60*1000), 
         "name": "Cheeseburger", 
         "servings": 1, 
         "time": 30,

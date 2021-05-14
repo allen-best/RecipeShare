@@ -1,0 +1,36 @@
+<div>
+    <h1>Recipe Share Homepage</h1>
+    <div class="error" id="errorDiv" hidden>You must enter an input value</div>
+    <form id="searchForm">
+        <label for='search_term'>Keyword:</label>
+        <input type='text' required id="search_term" /><br>
+
+        <input type='radio' id='both' name='type' value='both' checked>
+        <label for="both">Both</label><br>
+        <input type='radio' id='food' name='type' value='food'>
+        <label for="food">Food</label><br>
+        <input type='radio' id='drink' name='type' value='drink'>
+        <label for="drink">Drink</label><br>
+
+        <button type='submit'>Search Shows</button>
+    </form>
+
+    <div id='popularDiv'>
+        <h2>Most popular Recipe</h2>
+        <ul id="popularList"></ul>
+    </div>
+
+    <div id='recentDiv'>
+        <h2>Recent Recipe</h2>
+        <ul id="recentList"></ul>
+    </div>
+
+
+    <div id="resultDiv" hidden>
+        <h2>Search Result</h2>
+        <ul id="resultList"></ul>
+    </div>
+
+    <a id="homeLink" href="/" hidden>Back to main page</a>
+
+</div>

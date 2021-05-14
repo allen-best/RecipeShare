@@ -39,7 +39,7 @@ const createPost = async (body) => {
 
     let newPost = {
         type: body.type,
-        postedDate: body.postedDate,
+        postedDate: Date.parse(body.postedDate),
         name: body.name,
         servings: body.servings,
         time: body.time,
@@ -139,16 +139,26 @@ const updatePartialPost = async (id, body) => {
     return updatedIdPost;
 }
 
-const searchPost = async (keyword) => {
+
+const postForHomepage = async () => {
+    let recentPost = await getRecentPost();
+    let popularPost = await getPopularPost();
+    return {
+        recentPost: recentPost,
+        popularPost: popularPost
+    }
 
 }
 
 const getRecentPost = async () => {
-
+    return await getAllPosts();
 }
 
 const getPopularPost = async () => {
-
+    return await getAllPosts();
+}
+const searchPost = async (keyword, type) => {
+    return await getAllPosts();
 }
 
 module.exports = {
@@ -158,6 +168,7 @@ module.exports = {
     removePost,
     updatePost,
     updatePartialPost,
+    postForHomepage,
     searchPost,
     getRecentPost,
     getPopularPost
