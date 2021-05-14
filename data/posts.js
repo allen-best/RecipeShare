@@ -139,7 +139,6 @@ const updatePartialPost = async (id, body) => {
     return updatedIdPost;
 }
 
-//update later
 const postForHomepage = async () => {
     let recentPost = await getRecentPost();
     let popularPost = await getPopularPost();
@@ -151,14 +150,66 @@ const postForHomepage = async () => {
 }
 
 const getRecentPost = async () => {
-    return await getAllPosts();
+    let posts = await getAllPosts();
+    function sortByDate(a, b) {
+        if (a.postedDate > b.postedDate) {
+            return -1;
+        } else if (a.postedDate < b.postedDate) {
+            return 1;
+        }
+        return 0
+    }
+    posts.sort(sortByDate);
+    let result = [];
+    for (let i = 0; i < posts.length; i++) {
+        result.push(posts[i]);
+        if (result.length >= 10) {
+            return result;
+        }
+    }
+    return result;
 }
 
 const getPopularPost = async () => {
-    return await getAllPosts();
+    let posts = await getAllPosts();
+    function sortByLike(a, b) {
+        return b.likes.length - a.likes.length;
+    }
+    posts.sort(sortByLike);
+    let result = [];
+    for (let i = 0; i < posts.length; i++) {
+        result.push(posts[i]);
+        if (result.length >= 10) {
+            return result;
+        }
+    }
+    return result;
 }
+
+
 const searchPost = async (keyword, type) => {
-    return await getAllPosts();
+    if (!keyword || !type) {
+        throw 'You must provide a value for all inputs.';
+    }
+    if (typeof (keyword) !== "string" || typeof (type) !== "string") {
+        throw 'You must provide a valid string value for keyword and type.';
+    }
+    const postCollection = await posts();
+    await postCollection.createIndexes({
+        name: 'text',
+        steps: 'text',
+        tag: 'text',
+        ingredients: 'text'
+    });
+    let result;
+    if (type === 'food') {
+        result = await postCollection.find({ $text: { $search: keyword }, "type": "Food" }).toArray();
+    } else if (type === 'drink') {
+        result = await postCollection.find({ $text: { $search: keyword }, "type": "Drink" }).toArray();
+    } else {
+        result = await postCollection.find({ $text: { $search: keyword } }).toArray();
+    }
+    return result;
 }
 
 module.exports = {

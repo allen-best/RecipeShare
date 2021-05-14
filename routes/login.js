@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const saltRounds = 16;
+const xss = require('xss');
 //const userDB = require('../data/users.js');
 
 router.get('/', async (req, res) => {
@@ -12,18 +13,19 @@ router.get('/', async (req, res) => {
     }
 });
 router.post('/', async (req, res) => {
-    const { username, password } = req.body;
+    if(!req.body.username || !req.body.password){
+        console.log('username or password not exist');
+        res.sendStatus(404);
+        return;
+    }
+    const username = xss(req.body.username);
+    const password = xss(req.body.password);
 
     let authenticated = false;
     //check the username and password
     if (username === '1111' & password === '2222') {
         authenticated = true;
     }
-
-    console.log(username);
-    console.log(password);
-
-
 
     if (authenticated === true) {
         req.session.user = { username: username, userid: 'test id' }; //update later

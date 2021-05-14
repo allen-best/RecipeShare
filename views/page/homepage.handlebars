@@ -1,5 +1,7 @@
 <div>
     <h1>Recipe Share Homepage</h1>
+    <div>{{{toolBar}}}</div><br>
+
     <div class="error" id="errorDiv" hidden>You must enter an input value</div>
     <form id="searchForm">
         <label for='search_term'>Keyword:</label>
@@ -29,6 +31,7 @@
     <div id="resultDiv" hidden>
         <h2>Search Result:</h2>
         <ul id="resultList"></ul>
+        <h2 id='noResultWarning' hidden>No search result, please try other keyword</h2>
     </div>
 
     <a id="homeLink" href="/" hidden>Back to main page</a>

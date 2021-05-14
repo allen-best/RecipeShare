@@ -6,8 +6,6 @@
     };
     $.ajax(requestConfig).then(function (responseMessage) {
         let response = $(responseMessage);
-        console.log(response);
-
         let popularPost = response[0].data.popularPost;
         let recentPost = response[0].data.recentPost;
         //creat popular list
@@ -32,7 +30,6 @@
         return newItem;
     }
 
-
     //search
     $('#searchForm').submit((event) => {
         event.preventDefault();
@@ -54,11 +51,11 @@
             };
             $.ajax(searchRequest).then(function (responseMessage) {
                 let response = $(responseMessage);
-                console.log(response);
                 let searchPost = response[0].data;
                 if(!searchPost || searchPost.length === 0){
-
+                    $('#noResultWarning').show();
                 }else {
+                    $('#noResultWarning').hide();
                 for (let i = 0; i < searchPost.length; i++) {
                     let post = searchPost[i];
                     let name = post.name;
