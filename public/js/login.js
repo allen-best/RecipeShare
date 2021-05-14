@@ -1,15 +1,15 @@
 (function ($) {
     $('#loginForm').submit((event) => {
         event.preventDefault();
-        if ($('#username').val().trim() && $('#password').val().trim()) {
-            let username = $('#username').val().trim();
+        if ($('#email').val().trim() && $('#password').val().trim()) {
+            let email = $('#email').val().trim();
             let password = $('#password').val().trim();
             let loginRequest = {
                 method: 'POST',
                 url: '/login',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    username: username,
+                    email: email,
                     password: password
                 })
             };
@@ -21,9 +21,11 @@
                 if (status === 'login_success') { //login success
                     window.location.href = '/';
                 } else {//login fail
-                    $('#errorMsg').text("Sorry, that username or password didn't work.");
+                    $('#errorMsg').text("Sorry, that email or password didn't work.");
                 }
             });
+        } else {
+            $('#errorMsg').text("Sorry, please enter both email and password.");
         }
     });
 })(jQuery);

@@ -13,22 +13,25 @@ router.get('/', async (req, res) => {
     }
 });
 router.post('/', async (req, res) => {
-    if(!req.body.username || !req.body.password){
-        console.log('username or password not exist');
+    if(!req.body.email || !req.body.password){
+        console.log('email or password not exist');
         res.sendStatus(404);
         return;
     }
-    const username = xss(req.body.username);
+    const email = xss(req.body.email);
     const password = xss(req.body.password);
 
     let authenticated = false;
-    //check the username and password
-    if (username === '1111' & password === '2222') {
+    //check the email and password
+    if (email === '1111' & password === '2222') {
         authenticated = true;
     }
+    /*
+    
+    */
 
     if (authenticated === true) {
-        req.session.user = { username: username, userid: 'test id' }; //update later
+        req.session.user = { username: 'test username update later', userid: 'test id' }; //update later
         res.json({ status: 'login_success' });
     } else {
         res.json({ status: 'login_fail' });
