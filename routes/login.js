@@ -4,6 +4,13 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 16;
 //const userDB = require('../data/users.js');
 
+router.get('/', async (req, res) => {
+    try {
+        res.render('page/login', {});
+    } catch (e) {
+        res.status(404);
+    }
+});
 router.post('/', async (req, res) => {
 
     /*
