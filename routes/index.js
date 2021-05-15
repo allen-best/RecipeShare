@@ -26,7 +26,7 @@ const constructorMethod = (app) => {
     app.use('/post', postRoutes);
     app.use('/', homepageRoutes);
 
-    app.post('/new-like', async (req, res) => {
+    app.post('/new-like', async(req, res) => {
         try {
             let username = req.session.user.username;
             let userId = ObjectId(req.session.user.userid).toString();
@@ -43,10 +43,11 @@ const constructorMethod = (app) => {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'like_fail' });
             res.status(404);
+            // res.render('page/error');
         }
     });
 
-    app.post('/dislike', async (req, res) => {
+    app.post('/dislike', async(req, res) => {
         try {
             let userId = ObjectId(req.session.user.userid).toString();
             let newDislike = await likes.removeLike(ObjectId(req.body.postId).toString(), userId);
@@ -63,11 +64,12 @@ const constructorMethod = (app) => {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'dislike_fail' });
             res.status(404);
+            // res.render('page/error');
         }
     });
 
 
-    app.post('/new-comment', async (req, res) => {
+    app.post('/new-comment', async(req, res) => {
         try {
             let username = req.session.user.username;
             let userId = ObjectId(req.session.user.userid).toString();
@@ -83,11 +85,13 @@ const constructorMethod = (app) => {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'comment_fail' });
             res.status(404).send(e);
+            res.render('page/error');
         }
     });
 
     app.use('*', (req, res) => {
         res.sendStatus(404);
+        res.render('page/error');
     });
 };
 
