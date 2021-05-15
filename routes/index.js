@@ -25,12 +25,13 @@ const constructorMethod = (app) => {
     app.use('/register', registerRoutes);
     app.use('/post', postRoutes);
     app.use('/', homepageRoutes);
+    const xss = require('xss');
 
     app.post('/new-like', async(req, res) => {
         try {
             let username = req.session.user.username;
             let userId = ObjectId(req.session.user.userid).toString();
-            let newLike = await likes.createLike(ObjectId(req.body.postId).toString(), username, userId);
+            let newLike = await likes.createLike(ObjectId(xss(req.body.postId)).toString(), username, userId);
             console.log("Post created.")
 
             if (newLike) {
@@ -50,9 +51,8 @@ const constructorMethod = (app) => {
     app.post('/dislike', async(req, res) => {
         try {
             let userId = ObjectId(req.session.user.userid).toString();
-            let newDislike = await likes.removeLike(ObjectId(req.body.postId).toString(), userId);
-            //let newLike = await likes.createLike(ObjectId(req.body.postId).toString(), username, userId);
-            //console.log("Post created.")
+            let newDislike = await likes.removeLike(ObjectId(xss(req.body.postId)).toString(), userId);
+
 
             if (newDislike) {
                 res.json({ status: 'disliked' });
@@ -73,7 +73,8 @@ const constructorMethod = (app) => {
         try {
             let username = req.session.user.username;
             let userId = ObjectId(req.session.user.userid).toString();
-            let newComment = await comments.createComment(ObjectId(req.body.postId).toString(), { rating: req.body.rating, comment: req.body.comment, username: username }, userId);
+            console.log(req.body);
+            let newComment = await comments.createComment(ObjectId(xss(req.body.postId)).toString(), { rating: req.body.rating, comment: req.body.comment, username: username }, userId);
 
             if (newComment) {
                 res.json({ status: 'comment_created' });
