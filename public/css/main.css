@@ -164,6 +164,16 @@ p {
 }
 
 label {
-    background-color: aqua;
-    color: aquamarine;
+    /* background-color: aqua; */
+    /* color: aquamarine; */
+    color: aqua;
 }
+
+
+/* #clear {
+    background-color: cornflowerblue;
+}
+
+#signup {
+    background-color: cornflowerblue;
+} */
