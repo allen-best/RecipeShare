@@ -1,9 +1,9 @@
 <header>
-  <div><a href="/">Recipe Share</a><a href="/profile" style="float: right;">UserId: Hello123</a></div>
+  <div><a href="/">Recipe Share</a><a href="/profile/{{userInfo._id}}" style="float: right;">UserId: Hello123</a></div>
 </header>
 <h1>profile</h1>
 <div style="height: 150px;">
-  <img src="public\image\image1.jpg" alt="image" style="float:left;" height="100" width="100">
+  <img src="{{userInfo.image}}" alt="image" style="float:left;" height="100" width="100">
   <div>
     <span>name</span>
     <form action="/search" method="POST" class="new-post-form" style="float:right;">
@@ -21,7 +21,7 @@
   {{#if hasRecipe}}
   {{#each recipeList}}
   <div style="height: 150px;">
-    <img src="public\image\image1.jpg" alt="image" style="float:left;" height="100" width="100">
+    <img src="{{this.image}}" alt="image" style="float:left;" height="100" width="100">
     <div>
       <span>{{this.name}}</span>
       <form action="/search" method="POST" class="new-post-form" style="float:right;">
