@@ -24,36 +24,59 @@ const constructorMethod = (app) => {
     app.use('/profile', profileRoutes);
     app.use('/register', registerRoutes);
     app.use('/post', postRoutes);
-    app.use('/',homepageRoutes);
+    app.use('/', homepageRoutes);
 
     app.post('/new-like', async (req, res) => {
         try {
-            let newLike = await likes.createLike(ObjectId(req.body.postId).toString());
+            let username = req.session.user.username;
+            let userId = ObjectId(req.session.user.userid).toString();
+            let newLike = await likes.createLike(ObjectId(req.body.postId).toString(), username, userId);
             console.log("Post created.")
-    
+
             if (newLike) {
                 res.json({ status: 'like_created' });
             } else {
                 res.json({ status: 'like_fail' });
             }
-    
+
         } catch (e) {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'like_fail' });
-            res.status(404).send(e);
+            res.status(404);
         }
     });
+    
+    app.post('/dislike', async (req, res) => {
+        try {
+            let userId =  ObjectId(req.session.user.userid).toString();
+            let newDislike = await likes.removeLike(ObjectId(req.body.postId).toString(), userId);
+            //let newLike = await likes.createLike(ObjectId(req.body.postId).toString(), username, userId);
+            //console.log("Post created.")
+    
+            if (newDislike) {
+                res.json({ status: 'disliked' });
+            } else {
+                res.json({ status: 'dislike_fail' });
+            }
+    
+        } catch (e) {
+            console.log("Error: Post creation. " + e)
+            res.json({ status: 'dislike_fail' });
+            res.status(404);
+        }
+    });
+    
 
     app.post('/new-comment', async (req, res) => {
         try {
-            let newComment = await comments.createComment(ObjectId(req.body.postId).toString(), {rating: req.body.rating, comment:req.body.comment});
-    
+            let newComment = await comments.createComment(ObjectId(req.body.postId).toString(), { rating: req.body.rating, comment: req.body.comment });
+
             if (newComment) {
                 res.json({ status: 'comment_created' });
             } else {
                 res.json({ status: 'comment_fail' });
             }
-    
+
         } catch (e) {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'comment_fail' });
