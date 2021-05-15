@@ -1,0 +1,37 @@
+<header>
+  <div><a href="/">Recipe Share</a><a href="/profile" style="float: right;">UserId: Hello123</a></div>
+</header>
+<h1>profile</h1>
+<div style="height: 150px;">
+  <img src="public\image\image1.jpg" alt="image" style="float:left;" height="100" width="100">
+  <div>
+    <span>name</span>
+    <form action="/search" method="POST" class="new-post-form" style="float:right;">
+      <button type="button" style="float:right;">Edit Profile</button>
+    </form>
+    <p>this is my info</p>
+  </div>
+</div>
+<main>
+  <div style="height: 50px;"><span>25 Following</span><span>50 Followers</span>
+    <form action="/search" method="POST" class="new-post-form" style="float:right;">
+      <button type="button" style="float:right;">Create a new recipe</button>
+    </form>
+  </div>
+  {{#if hasRecipe}}
+  {{#each recipeList}}
+  <div style="height: 150px;">
+    <img src="public\image\image1.jpg" alt="image" style="float:left;" height="100" width="100">
+    <div>
+      <span>{{this.name}}</span>
+      <form action="/search" method="POST" class="new-post-form" style="float:right;">
+        <button type="button" style="float:right;">Edit</button>
+      </form>
+      <p>{{this.tag}}</p>
+    </div>
+  </div>
+  {{/each}}
+  {{else}}
+  <p class="not-found">We're sorry, but no recipe right now.</p>
+  {{/if}}
+</main>
