@@ -8,6 +8,12 @@ router.get('/:id', async(req, res) => {
     let userID = req.params.id;
     try {
         const userInfo = await userData.getUser(userID);
+        const image = userInfo.image;
+        if (!image) {
+            image = "../public/image/undefine_image.png";
+        }
+        //const image = "public/image/undefine_image.png";
+        userInfo.image = image;
         const recipeIDListAll = userInfo.createdPosts;
 
 
@@ -15,6 +21,9 @@ router.get('/:id', async(req, res) => {
         let recipeListSize = recipeIDListAll.length;
         for (let index = 0; index < recipeListSize; index++) {
             const recipe = await postData.getPost(recipeIDListAll[index]);
+            if (!recipe.image) {
+                recipe.image = "../public/image/undefine_image.png";
+            }
             recipeList.push(recipe);
         }
 
@@ -39,7 +48,7 @@ router.get('/:id', async(req, res) => {
         if (recipeList.length > 0) {
             hasRecipe = true;
         }
-        res.render('page/profile', { recipeList: recipeList, hasRecipe: hasRecipe });
+        res.render('page/profile', { userInfo: userInfo, recipeList: recipeList, hasRecipe: hasRecipe });
     } catch (e) {
         res.status(500).send();
         // res.render('page/error');
