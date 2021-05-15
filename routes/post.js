@@ -34,8 +34,6 @@ router.post('/edit/:idNumber', async(req, res) => {
     retrievedPost.postedDate = new Date(retrievedPost.postedDate).toLocaleString('English', { hour12: false });
     // console.log(JSON.stringify(retrievedPost.comments));
     res.render('page/editRecipe', { title: title, post: retrievedPost, postId: req.params.idNumber, scriptFile: '<script src="/public/js/likes.js"></script><script src="/public/js/comments.js"></script>' });
-
-
 });
 
 
