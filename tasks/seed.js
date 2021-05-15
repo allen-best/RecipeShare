@@ -11,10 +11,25 @@ const main = async() => {
     const db = await dbConnection();
     await db.dropDatabase();
 
+    let annmarie = await users.createUser({
+        "firstName": "Annmarie",
+        "lastName": "DiGioia",
+        "email": "adigioia@stevens.edu",
+        "gender": "Female",
+        "city": "Hoboken",
+        "state": "New Jersey",
+        "age": "22",
+        "password": "annmariedigioia"
+            // "hashedPassword": "4b475dd8c2650889064f7c7a48dde356"
+            // "likedPosts": [],
+            // "createdPosts": []
+    });
+
     let whiskeySour = await posts.createPost({
         "type": "Drink",
         "postedDate": new Date(new Date() - 10 * 60 * 60 * 1000),
         "name": "Whiskey Sour",
+        "author_id": annmarie._id,
         "servings": 1,
         "cook_time": 30,
         "prepare_time": 30,
@@ -29,6 +44,7 @@ const main = async() => {
         "type": "Food",
         "postedDate": new Date(new Date() - 15 * 60 * 60 * 1000),
         "name": "Cheeseburger",
+        "author_id": annmarie._id,
         "servings": 1,
         "cook_time": 30,
         "prepare_time": 30,
@@ -39,19 +55,7 @@ const main = async() => {
         ]
     });
 
-    let annmarie = await users.createUser({
-        "firstName": "Annmarie",
-        "lastName": "DiGioia",
-        "email": "adigioia@stevens.edu",
-        "gender": "Female",
-        "city": "Hoboken",
-        "state": "New Jersey",
-        "age": "22",
-        "password": "annmariedigioia"
-            // "hashedPassword": "4b475dd8c2650889064f7c7a48dde356"
-            // "likedPosts": [],
-            // "createdPosts": []
-    });
+
 
     let allen = await users.createUser({
         "firstName": "Allen",

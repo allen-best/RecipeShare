@@ -89,7 +89,7 @@ app.use('/profile', (req, res, next) => {
   }
 });
 
-/*
+
 app.use('/post', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/login');
@@ -97,7 +97,7 @@ app.use('/post', (req, res, next) => {
     next();
   }
 });
-*/
+
 
 
 
