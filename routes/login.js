@@ -7,14 +7,15 @@ const userDB = require('../data/users.js');
 
 
 
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     try {
         res.render('page/login', { scriptFile: '<script src="/public/js/login.js"></script>' });
     } catch (e) {
         res.status(404);
+        // res.render('page/error');
     }
 });
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     if (!req.body.email || !req.body.password) {
         console.log('email or password not exist');
         res.sendStatus(404);

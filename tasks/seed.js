@@ -11,6 +11,8 @@ const main = async () => {
     const db = await dbConnection();
     await db.dropDatabase();
 
+    //create user
+
     let annmarie = await users.createUser({
         "firstName": "Annmarie",
         "lastName": "DiGioia",
@@ -67,11 +69,29 @@ const main = async () => {
         // "createdPosts": []
     });
 
+
+
+    let annmarie_username = `${annmarie.firstName} ${annmarie.lastName}`;
+    let annmarie_userId = ObjectId(annmarie._id).toString();
+
+    let xianli_username = `${xianli.firstName} ${xianli.lastName}`;
+    let xianli_userId = ObjectId(xianli._id).toString();
+
+    let allen_username = `${allen.firstName} ${allen.lastName}`;
+    let allen_userId = ObjectId(allen._id).toString();
+
+    let tianqi_username = `${tianqi.firstName} ${tianqi.lastName}`;
+    let tianqi_userId = ObjectId(tianqi._id).toString();
+
+
+    //creat recipe
+
     let whiskeySour = await posts.createPost({
         "type": "Drink",
         "postedDate": new Date(new Date() - 10 * 60 * 60 * 1000 - 31213),
         "name": "Whiskey Sour",
         "author_id": annmarie._id,
+        "author_name": annmarie_username,
         "servings": 1,
         "cook_time": 30,
         "prepare_time": 30,
@@ -81,12 +101,18 @@ const main = async () => {
             "Strain cocktail through a Hawthorne strainer or a slotted spoon into an old-fashioned or rocks glass filled with ice. Garnish with orange wheel and cherry."
         ]
     });
+    await likes.createLike(ObjectId(whiskeySour._id).toString(), annmarie_username, annmarie_userId);
+    await likes.createLike(ObjectId(whiskeySour._id).toString(), xianli_username, xianli_userId);
+    await likes.createLike(ObjectId(whiskeySour._id).toString(), allen_username, allen_userId);
+    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 5, comment: "This amazing", username: xianli_username }, xianli_userId);
+    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 4, comment: "This is pretty good", username: allen_username }, allen_userId);
 
     let cheeseBurger = await posts.createPost({
         "type": "Food",
         "postedDate": new Date(new Date() - 15 * 60 * 60 * 1000 + 32312),
         "name": "Cheeseburger",
         "author_id": annmarie._id,
+        "author_name": annmarie_username,
         "servings": 1,
         "cook_time": 30,
         "prepare_time": 30,
@@ -97,11 +123,18 @@ const main = async () => {
         ]
     });
 
+    await likes.createLike(ObjectId(cheeseBurger._id).toString(), annmarie_username, annmarie_userId);
+    await likes.createLike(ObjectId(cheeseBurger._id).toString(), allen_username, allen_userId);
+    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 5, comment: "This amazing", username: tianqi_username }, tianqi_userId);
+    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 3, comment: "This is pretty mediocre", username: allen_username }, tianqi_userId);
+
+
     let lemonMartini = await posts.createPost({
         "type": "Drink",
         "postedDate": new Date(new Date() - 1.5 * 60 * 60 * 1000 - 31291),
         "name": "Lemon Martini",
         "author_id": xianli._id,
+        "author_name": xianli_username,
         "servings": 1,
         "cook_time": 10,
         "prepare_time": 10,
@@ -111,14 +144,18 @@ const main = async () => {
             "Dip the rim of the glass in 1 teaspoon sugar, or as needed. Strain martini into prepared glass."
         ]
     });
-    //comment : So easy to make and is not too tart
-    //comment: Can't wait to try it 
+
+    await likes.createLike(ObjectId(lemonMartini._id).toString(), allen_username, allen_userId);
+    await comments.createComment(ObjectId(lemonMartini._id).toString(), { rating: 4, comment: "So easy to make and is not too tart", username: tianqi_username }, tianqi_userId);
+    await comments.createComment(ObjectId(lemonMartini._id).toString(), { rating: 5, comment: "Can't wait to try it ", username: annmarie_username }, annmarie_userId);
+
 
     let whiteChocolateLatte = await posts.createPost({
         "type": "Drink",
         "postedDate": new Date(new Date() - 25 * 60 * 60 * 1000 + 63125),
         "name": "White Chocolate Latte",
         "author_id": xianli._id,
+        "author_name": xianli_username,
         "servings": 2,
         "cook_time": 5,
         "prepare_time": 5,
@@ -128,15 +165,19 @@ const main = async () => {
             "If you are making two, pour half into another mug. Top with the frothy hot milk and stir to blend in the flavoring."
         ]
     });
-    //comment: Absolutely delicious!!!
-    //comment: Good. It's easy to make and turns out really well. 
-    //comment: although it was good I didn't find it great, too bitter for me.
+
+    await likes.createLike(ObjectId(whiteChocolateLatte._id).toString(), tianqi_username, tianqi_userId);
+    await likes.createLike(ObjectId(whiteChocolateLatte._id).toString(), annmarie_username, annmarie_userId);
+    await comments.createComment(ObjectId(whiteChocolateLatte._id).toString(), { rating: 5, comment: "Absolutely delicious!!!", username: tianqi_username }, tianqi_userId);
+    await comments.createComment(ObjectId(whiteChocolateLatte._id).toString(), { rating: 4, comment: "Good. It's easy to make and turns out really well. ", username: allen_username }, allen_userId);
+    await comments.createComment(ObjectId(whiteChocolateLatte._id).toString(), { rating: 5, comment: "Although it was good I didn't find it great, too bitter for me. ", username: annmarie_username }, annmarie_userId);
 
     let lemonChickenTenders = await posts.createPost({
         "type": "Food",
         "postedDate": new Date(new Date() - 40 * 60 * 60 * 1000 - 4530),
         "name": "Lemon Chicken Tenders",
-        "author_id": xianli._id,
+        "author_id": tianqi._id,
+        "author_name": tianqi_username,
         "servings": 4,
         "cook_time": 20,
         "prepare_time": 15,
@@ -146,15 +187,17 @@ const main = async () => {
             "Drizzle lemon sauce over chicken, return to oven, and bake 5 minutes more."
         ]
     });
+    await likes.createLike(ObjectId(lemonChickenTenders._id).toString(), xianli_username, xianli_userId);
+    await likes.createLike(ObjectId(lemonChickenTenders._id).toString(), allen_username, allen_userId);
+    await comments.createComment(ObjectId(lemonChickenTenders._id).toString(), { rating: 5, comment: "I love that curry taste !", username: xianli_username }, xianli_userId);
+    await comments.createComment(ObjectId(lemonChickenTenders._id).toString(), { rating: 3, comment: "Too sweet for me", username: allen_username }, allen_userId);
 
-    //comment: I love that curry taste 
-    //comment: Too sweet for me
-
-    let sample = await posts.createPost({
+    let Oyakodon = await posts.createPost({
         "type": "Food",
         "postedDate": new Date(new Date() - 32 * 60 * 60 * 1000 + 23313),
         "name": "Oyakodon (Japanese Chicken and Egg Rice Bowl)",
-        "author_id": xianli._id,
+        "author_id": allen._id,
+        "author_name": allen_username,
         "servings": 4,
         "cook_time": 25,
         "prepare_time": 15,
@@ -164,6 +207,12 @@ const main = async () => {
             "Whisk the eggs in a bowl until well-beaten, and pour over the chicken and stock. Cover the skillet, reduce heat, and allow to steam for about 5 minutes, until the egg is cooked. Remove from heat. To serve, place 1 cup of cooked rice per bowl into 4 deep soup bowls, top each bowl with 1/4 of the chicken and egg mixture, and spoon about 1/2 cup of soup into each bowl."
         ]
     });
+    await likes.createLike(ObjectId(Oyakodon._id).toString(), xianli_username, xianli_userId);
+    await likes.createLike(ObjectId(Oyakodon._id).toString(), annmarie_username, annmarie_userId);
+    await comments.createComment(ObjectId(Oyakodon._id).toString(), { rating: 4, comment: "It came out too sweet for my taste. If I make it again, I will reduced the brown sugar to half.", username: xianli_username }, xianli_userId);
+    await comments.createComment(ObjectId(Oyakodon._id).toString(), { rating: 5, comment: "Great recipe, thank you!", username: annmarie_username }, annmarie_userId);
+    await comments.createComment(ObjectId(Oyakodon._id).toString(), { rating: 5, comment: "I really enjoyed this recipe.", username: tianqi_username }, tianqi_userId);
+
 
     /*
         let sample = await posts.createPost({
@@ -180,32 +229,9 @@ const main = async () => {
             "step3"
         ]
     });
+        await likes.createLike(ObjectId(sample._id).toString(), annmarie_username, annmarie_userId);
+        await comments.createComment(ObjectId(sample._id).toString(), { rating: 4, comment: "comment", username: xianli_username }, xianli_userId);
     */
-
-    //username: `${user.firstName} ${user.lastName}`, userid: user._id
-    let annmarie_username = `${annmarie.firstName} ${annmarie.lastName}`;
-    let annmarie_userId = ObjectId(annmarie._id).toString();
-
-    let xianli_username = `${xianli.firstName} ${xianli.lastName}`;
-    let xianli_userId = ObjectId(xianli._id).toString();
-
-    let allen_username = `${allen.firstName} ${allen.lastName}`;
-    let allen_userId = ObjectId(allen._id).toString();
-
-    let tianqi_username = `${tianqi.firstName} ${tianqi.lastName}`;
-    let tianqi_userId = ObjectId(tianqi._id).toString();
-
-
-    await likes.createLike(ObjectId(whiskeySour._id).toString(), annmarie_username, annmarie_userId);
-    await likes.createLike(ObjectId(whiskeySour._id).toString(), xianli_username, xianli_userId);
-    await likes.createLike(ObjectId(whiskeySour._id).toString(), allen_username, allen_userId);
-    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 5, comment: "This amazing", username: xianli_username }, xianli_userId);
-    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 4, comment: "This is pretty good", username: allen_username }, allen_userId);
-
-    await likes.createLike(ObjectId(cheeseBurger._id).toString(), annmarie_username, annmarie_userId);
-    await likes.createLike(ObjectId(cheeseBurger._id).toString(), allen_username, allen_userId);
-    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 5, comment: "This amazing", username: tianqi_username }, tianqi_userId);
-    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 3, comment: "This is pretty mediocre", username: allen_username }, tianqi_userId);
 
     console.log('Done seeding database');
 
