@@ -1,21 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const data = require('../data/posts');
+const postData = require('../data/posts');
+const userData = require('../data/users');
 
 
-router.get('/', async (req, res) => {
-
+router.get('/:id', async (req, res) => {
+    let userID = req.params.id;
     try {
-        const recipeListAll = await data.getAllPosts();
-        let recipeList = [];
-        let recipeListSize = recipeListAll.length;
-        for (let index = 0; index < recipeListSize; index++) {
-            const element = recipeListAll[index];
-            if (element) {
-                recipeList.push(element);
-            }
-        }
+        const userInfo = await userData.getUser(userID);
+        const recipeIDListAll = userInfo.createdPosts;
 
+       
+        let recipeList = [];
+        let recipeListSize = recipeIDListAll.length;
+        for (let index = 0; index < recipeListSize; index++) {
+            const recipe = await postData.getPost(recipeIDListAll[index]);
+            recipeList.push(recipe);
+        }
+        
         // sort function newest to Older
         function compare(pro) { 
             return function (obj1, obj2) { 
