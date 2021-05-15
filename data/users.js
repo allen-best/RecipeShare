@@ -11,8 +11,7 @@ const uuid = require('uuid')
 
 const showErrorsMost = (body) => {
     //show error when any required field is missing
-    if (body.firstName === undefined || body.lastName === undefined || body.email === undefined || body.gender === undefined || body.city === undefined || body.state === undefined || body.age === undefined || body.hashedPassword === undefined) {
-        //MIGHT HAVE TO GET RID OF HASHED PASSWORD FROM LINE ABOVE
+    if (body.firstName === undefined || body.lastName === undefined || body.email === undefined || body.gender === undefined || body.city === undefined || body.state === undefined || body.age === undefined || body.password === undefined) {
         throw 'Error: must provide all required fields';
     }
 
@@ -22,7 +21,7 @@ const showErrorsMost = (body) => {
     }
 
     //makes sure user does not input whitespace/only spaces as input values
-    if (body.firstName === "" || body.lastName === "" || body.email === "" || body.gender === "" || body.city === "" || body.state === "" || body.age === "" || body.hashedPassword === "") {
+    if (body.firstName === "" || body.lastName === "" || body.email === "" || body.gender === "" || body.city === "" || body.state === "" || body.age === "" || body.password === "") {
         throw 'Error: cannot enter spaces as values for required fields'
     }
 

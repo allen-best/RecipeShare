@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 //const xss = require('xss');
-const userData = require('../data/users');
-const postData = require('../data/posts');
+const user = require('../data/users');
+//const postData = require('../data/posts');
 
 router.get('/', async(req, res) => {
     try {
@@ -17,9 +17,11 @@ router.post('/', async(req, res) => {
     try {
         let newUser = await user.createUser(req.body);
         const title = "User Created!";
+        req.session.user = { username: `${newUser.firstName} ${newUser.lastName}`, userid: 'test id' };
         res.redirect("/");
     } catch (e) {
-        res.status(404);
+        console.log(e);
+        res.status(404).send();
     }
 });
 

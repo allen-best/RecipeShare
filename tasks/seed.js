@@ -3,6 +3,7 @@ const data = require('../data/');
 const posts = data.postData;
 const comments = data.commentData;
 const likes = data.likeData;
+const users = data.userData;
 
 const ObjectId = require('mongodb').ObjectID;
 
@@ -46,9 +47,10 @@ const main = async() => {
         "city": "Hoboken",
         "state": "New Jersey",
         "age": "22",
-        "hashedPassword": "4b475dd8c2650889064f7c7a48dde356",
-        "likedPosts": [],
-        "createdPosts": []
+        "password": "annmariedigioia"
+            // "hashedPassword": "4b475dd8c2650889064f7c7a48dde356"
+            // "likedPosts": [],
+            // "createdPosts": []
     });
 
     let allen = await users.createUser({
@@ -59,9 +61,10 @@ const main = async() => {
         "city": "Hoboken",
         "state": "New Jersey",
         "age": "23",
-        "hashedPassword": "fc6b4e5cf88d5bcdd0312b31bdd813c5",
-        "likedPosts": [],
-        "createdPosts": []
+        "password": "allenbest"
+            // "hashedPassword": "fc6b4e5cf88d5bcdd0312b31bdd813c5"
+            // "likedPosts": [],
+            // "createdPosts": []
     });
 
     let tianqi = await users.createUser({
@@ -72,9 +75,10 @@ const main = async() => {
         "city": "Hoboken",
         "state": "New Jersey",
         "age": "24",
-        "hashedPassword": "348c190e8d8d258f300610168829bec9",
-        "likedPosts": [],
-        "createdPosts": []
+        "password": "tianqiyao"
+            // "hashedPassword": "348c190e8d8d258f300610168829bec9"
+            // "likedPosts": [],
+            // "createdPosts": []
     });
 
     let xianli = await users.createUser({
@@ -85,9 +89,10 @@ const main = async() => {
         "city": "Hoboken",
         "state": "New Jersey",
         "age": "25",
-        "hashedPassword": "d681892fb6635f8aa0defdead2301a8a",
-        "likedPosts": [],
-        "createdPosts": []
+        "password": "xianlishen"
+            // "hashedPassword": "d681892fb6635f8aa0defdead2301a8a"
+            // "likedPosts": [],
+            // "createdPosts": []
     });
 
     await likes.createLike(ObjectId(whiskeySour._id).toString());
