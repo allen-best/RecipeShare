@@ -7,7 +7,7 @@ const users = data.userData;
 
 const ObjectId = require('mongodb').ObjectID;
 
-const main = async() => {
+const main = async () => {
     const db = await dbConnection();
     await db.dropDatabase();
 
@@ -20,9 +20,9 @@ const main = async() => {
         "state": "New Jersey",
         "age": "22",
         "password": "annmariedigioia"
-            // "hashedPassword": "4b475dd8c2650889064f7c7a48dde356"
-            // "likedPosts": [],
-            // "createdPosts": []
+        // "hashedPassword": "4b475dd8c2650889064f7c7a48dde356"
+        // "likedPosts": [],
+        // "createdPosts": []
     });
 
     let allen = await users.createUser({
@@ -34,9 +34,9 @@ const main = async() => {
         "state": "New Jersey",
         "age": "23",
         "password": "allenbest"
-            // "hashedPassword": "fc6b4e5cf88d5bcdd0312b31bdd813c5"
-            // "likedPosts": [],
-            // "createdPosts": []
+        // "hashedPassword": "fc6b4e5cf88d5bcdd0312b31bdd813c5"
+        // "likedPosts": [],
+        // "createdPosts": []
     });
 
     let tianqi = await users.createUser({
@@ -48,9 +48,9 @@ const main = async() => {
         "state": "New Jersey",
         "age": "24",
         "password": "tianqiyao"
-            // "hashedPassword": "348c190e8d8d258f300610168829bec9"
-            // "likedPosts": [],
-            // "createdPosts": []
+        // "hashedPassword": "348c190e8d8d258f300610168829bec9"
+        // "likedPosts": [],
+        // "createdPosts": []
     });
 
     let xianli = await users.createUser({
@@ -62,9 +62,9 @@ const main = async() => {
         "state": "New Jersey",
         "age": "25",
         "password": "xianlishen"
-            // "hashedPassword": "d681892fb6635f8aa0defdead2301a8a"
-            // "likedPosts": [],
-            // "createdPosts": []
+        // "hashedPassword": "d681892fb6635f8aa0defdead2301a8a"
+        // "likedPosts": [],
+        // "createdPosts": []
     });
 
     let whiskeySour = await posts.createPost({
@@ -99,7 +99,7 @@ const main = async() => {
 
     let lemonMartini = await posts.createPost({
         "type": "Drink",
-        "postedDate": new Date(new Date() - 1.5 * 60 * 60 * 1000 -31291),
+        "postedDate": new Date(new Date() - 1.5 * 60 * 60 * 1000 - 31291),
         "name": "Lemon Martini",
         "author_id": xianli._id,
         "servings": 1,
@@ -181,16 +181,31 @@ const main = async() => {
         ]
     });
     */
-    await likes.createLike(ObjectId(whiskeySour._id).toString());
-    await likes.createLike(ObjectId(whiskeySour._id).toString());
-    await likes.createLike(ObjectId(whiskeySour._id).toString());
-    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 5, comment: "This amazing" });
-    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 4, comment: "This is pretty good" });
 
-    await likes.createLike(ObjectId(cheeseBurger._id).toString());
-    await likes.createLike(ObjectId(cheeseBurger._id).toString());
-    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 5, comment: "This amazing" });
-    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 3, comment: "This is pretty mediocre" });
+    //username: `${user.firstName} ${user.lastName}`, userid: user._id
+    let annmarie_username = `${annmarie.firstName} ${annmarie.lastName}`;
+    let annmarie_userId = ObjectId(annmarie._id).toString();
+
+    let xianli_username = `${xianli.firstName} ${xianli.lastName}`;
+    let xianli_userId = ObjectId(xianli._id).toString();
+
+    let allen_username = `${allen.firstName} ${allen.lastName}`;
+    let allen_userId = ObjectId(allen._id).toString();
+
+    let tianqi_username = `${tianqi.firstName} ${tianqi.lastName}`;
+    let tianqi_userId = ObjectId(tianqi._id).toString();
+
+
+    await likes.createLike(ObjectId(whiskeySour._id).toString(), annmarie_username, annmarie_userId);
+    await likes.createLike(ObjectId(whiskeySour._id).toString(), xianli_username, xianli_userId);
+    await likes.createLike(ObjectId(whiskeySour._id).toString(), allen_username, allen_userId);
+    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 5, comment: "This amazing", username: xianli_username }, xianli_userId);
+    await comments.createComment(ObjectId(whiskeySour._id).toString(), { rating: 4, comment: "This is pretty good", username: allen_username }, allen_userId);
+
+    await likes.createLike(ObjectId(cheeseBurger._id).toString(), annmarie_username, annmarie_userId);
+    await likes.createLike(ObjectId(cheeseBurger._id).toString(), allen_username, allen_userId);
+    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 5, comment: "This amazing", username: tianqi_username }, tianqi_userId);
+    await comments.createComment(ObjectId(cheeseBurger._id).toString(), { rating: 3, comment: "This is pretty mediocre", username: allen_username }, tianqi_userId);
 
     console.log('Done seeding database');
 

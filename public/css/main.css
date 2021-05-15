@@ -1,5 +1,6 @@
 body {
     background: #fefefe;
+    /* background: beige; */
     font-size: 15pt;
 }
 
@@ -61,6 +62,16 @@ h6 {
     font-weight: 300;
 }
 
+.welcome1 {
+    /* text-decoration: wavy; */
+    color: cornflowerblue;
+}
+
+.welcome2 {
+    color: cornflowerblue;
+    /* text-align: right; */
+}
+
 ul {
     padding: 20px;
 }
@@ -117,14 +128,16 @@ p {
 #search_form_box {
     box-sizing: border-box;
     height: 150px;
-    background-color: lightgray;
+    /* background-color: lightgray; */
+    background-color: lightskyblue;
     margin: 15px;
 }
 
 #popularDiv {
     float: left;
     padding: 5px;
-    background-color: lightgray;
+    /* background-color: lightgray; */
+    background-color: lightskyblue;
     width: 47%;
     margin: 15px;
 }
@@ -132,7 +145,8 @@ p {
 #recentDiv {
     float: right;
     padding: 5px;
-    background-color: lightgray;
+    /* background-color: lightgray; */
+    background-color: lightskyblue;
     width: 47%;
     margin: 15px;
 }
@@ -142,7 +156,8 @@ p {
     text-align: center;
     margin: 0 auto;
     margin-top: 15%;
-    background: lightgray;
+    /* background: lightgray; */
+    background: pink;
     padding: 20px 50px;
 }
 
@@ -152,6 +167,7 @@ p {
     margin: 0 auto;
     margin-top: 15%;
     background: lightgray;
+    /* background: pink; */
     padding: 20px 50px;
 }
 
@@ -166,7 +182,8 @@ p {
 label {
     /* background-color: aqua; */
     /* color: aquamarine; */
-    color: aqua;
+    /* color: aqua; */
+    color: black;
 }
 
 
@@ -177,3 +194,18 @@ label {
 #signup {
     background-color: cornflowerblue;
 } */
+
+a {
+    color: rgba(255, 0, 255, 0.904);
+    text-decoration: none;
+    font-size: 14pt;
+}
+
+a:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: sienna;
+}

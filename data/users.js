@@ -27,7 +27,7 @@ const showErrorsMost = (body) => {
 
     //check age to make sure it is over 0
     if (body.age < 0) {
-        throw 'Error: age should over 0';
+        throw 'Error: age should be over 0';
     }
 
     //makes sure likedPosts and createdPosts are arrays - cannot show error if either array has a length < 0 because user might just not have liked or created any posts
