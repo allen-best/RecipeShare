@@ -12,7 +12,12 @@ header {
     border-bottom: 1px solid #afafaf;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #333;
     margin-bottom: 5px;
 }
@@ -41,15 +46,8 @@ h6 {
     font-size: 1.05rem;
 }
 
-.not-prime {
-    color: #FF3D00;
-}
-
-.is-prime {
-    color: #00E676;
-}
-
-.not-found, .error {
+.not-found,
+.error {
     color: red;
 }
 
@@ -161,6 +159,11 @@ p {
     margin: 10px;
 }
 
-.Register_bar{
+.Register_bar {
     margin: 10px;
+}
+
+label {
+    background-color: aqua;
+    color: aquamarine;
 }

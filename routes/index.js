@@ -6,7 +6,7 @@ const setupRoutes = require('./setup');
 const homepageRoutes = require('./homepage');
 const profileRoutes = require('./profile');
 const registerRoutes = require('./register');
-const postRoutes = require('./posts');
+// const postRoutes = require('./posts');
 
 
 const constructorMethod = (app) => {
@@ -17,7 +17,7 @@ const constructorMethod = (app) => {
     app.use('/setup', setupRoutes);
     app.use('/profile', profileRoutes);
     app.use('/register', registerRoutes);
-    app.use('/post', postRoutes);
+    // app.use('/post', postRoutes);
     app.use('/', homepageRoutes);
 
     app.use('*', (req, res) => {
