@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 16;
 const xss = require('xss');
 //const userDB = require('../data/users.js');
+const userDB = require('../test_userDB.js');
+
 
 router.get('/', async (req, res) => {
     try {
@@ -13,25 +15,30 @@ router.get('/', async (req, res) => {
     }
 });
 router.post('/', async (req, res) => {
-    if(!req.body.email || !req.body.password){
+    if (!req.body.email || !req.body.password) {
         console.log('email or password not exist');
         res.sendStatus(404);
         return;
     }
-    const email = xss(req.body.email);
+    const email = xss(req.body.email).toLowerCase();
     const password = xss(req.body.password);
 
     let authenticated = false;
-    //check the email and password
-    if (email === '1111' & password === '2222') {
-        authenticated = true;
-    }
-    /*
     
-    */
-
+    //check the email and password
+    let user;
+    try {
+        user = await userDB.getUserByEmail(email);
+    } catch (e) {
+        console.log(e);
+        res.json({ status: 'login_fail' });
+        return;
+    }
+    if (user) { //exist
+        authenticated = await bcrypt.compare(password, user.hashedPassword);
+    }
     if (authenticated === true) {
-        req.session.user = { username: 'test username update later', userid: 'test id' }; //update later
+        req.session.user = { username: `${user.firstName} ${user.lastName}`, userid: 'test id' }; //update later
         res.json({ status: 'login_success' });
     } else {
         res.json({ status: 'login_fail' });
