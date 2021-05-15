@@ -1,7 +1,7 @@
 <header>
-  <div><a href="/">Recipe Share</a><a href="/profile" style="float: right;">UserId: Hello123</a></div>
+  <div><a href="/">Recipe Share</a><a href="/profile" style="float: right;">User ID: Hello123</a></div>
 </header>
-<h1>profile</h1>
+<h1>Profile</h1>
 <div style="height: 150px;">
   <img src="public\image\image1.jpg" alt="image" style="float:left;" height="100" width="100">
   <div>
@@ -9,13 +9,15 @@
     <form action="/search" method="POST" class="new-post-form" style="float:right;">
       <button type="button" style="float:right;">Edit Profile</button>
     </form>
-    <p>this is my info</p>
+    <p>This is my bio!</p>
   </div>
 </div>
 <main>
-  <div style="height: 50px;"><span>25 Following</span><span>50 Followers</span>
+  <div style="height: 50px;"><span>25 Following</span> <br> <span>50 Followers</span>
     <form action="/search" method="POST" class="new-post-form" style="float:right;">
       <button type="button" style="float:right;">Create a new recipe</button>
+      <br>
+      <button type="button" style="float:right;">Edit recipe</button>
     </form>
   </div>
   {{#if hasRecipe}}
@@ -32,6 +34,11 @@
   </div>
   {{/each}}
   {{else}}
-  <p class="not-found">We're sorry, but no recipe right now.</p>
+  <br>
+  <br>
+  <p class="not-found">You haven't posted any recipes yet!</p>
   {{/if}}
+  <br>
+  <br>
+  <a id="homeLink" href="/">Back to main page</a>
 </main>
