@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+const saltRounds = 16;
 //file will be used for the users of recipe share (backend)
 
 const mongoCollections = require('../config/mongoCollections');
@@ -25,9 +27,9 @@ const showErrorsMost = (body) => {
     }
 
     //makes sure likedPosts and createdPosts are arrays - cannot show error if either array has a length < 0 because user might just not have liked or created any posts
-    if (!Array.isArray(body.likedPosts) || !Array.isArray(body.createdPosts)) {
-        throw 'Error: must input correct types of values for required fields';
-    }
+    // if (!Array.isArray(body.likedPosts) || !Array.isArray(body.createdPosts)) {
+    //     throw 'Error: must input correct types of values for required fields';
+    // }
 }
 
 //does all checking for id field
@@ -36,6 +38,8 @@ const showErrorsID = (id) => {
 }
 
 const createUser = async(body) => {
+    const hash = await bcrypt.hash(body.password, saltRounds);
+    body.hashedPassword = hash;
     showErrorsMost(body);
 
     const userCollection = await users();

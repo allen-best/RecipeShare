@@ -5,6 +5,7 @@ const recipeFormRoutes = require('./recipeForm');
 const setupRoutes = require('./setup');
 const homepageRoutes = require('./homepage');
 const profileRoutes = require('./profile');
+const registerRoutes = require('./register');
 
 
 const constructorMethod = (app) => {
@@ -14,6 +15,7 @@ const constructorMethod = (app) => {
   app.use('/recipe-form', recipeFormRoutes);
   app.use('/setup', setupRoutes);
   app.use('/profile', profileRoutes);
+  app.use('/register', registerRoutes);
   app.use('/',homepageRoutes);
 
   app.use('*', (req, res) => {
