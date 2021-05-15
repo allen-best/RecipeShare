@@ -13,6 +13,15 @@ router.get('/', async(req, res) => {
     }
 });
 
+router.post('/', async(req, res) => {
+    try {
+        let newUser = await user.createUser(req.body);
+        const title = "User Created!";
 
+        res.redirect("/");
+    } catch (e) {
+        res.status(404);
+    }
+});
 
 module.exports = router;

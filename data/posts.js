@@ -11,17 +11,18 @@ const errorThrowCreate = (body) => {
     }
 
     // check for string inputs
-    if (typeof (body.type) !== "string" || typeof (body.name) !== "string" || body.type === "" || body.name === "") {
+    if (typeof (body.type) !== "string" || typeof (body.name) !== "string" || typeof (body.ingredients) !== "string" 
+    || body.type === "" || body.name === "" || body.ingredients === "") {
         throw 'You must provide a valid string value for type and name.';
     }
 
     // check for number inputs
-    if (typeof (body.time) !== "number" || typeof (body.servings) !== "number") {
+    if (typeof (body.cook_time) !== "number" || typeof (body.servings) !== "number" || typeof (body.prepare_time) !== "number") {
         throw 'You must provide a number value for time and servings';
     }
 
     // check for array inputs
-    if (!Array.isArray(body.tag) || !Array.isArray(body.ingredients) || !Array.isArray(body.steps)) {
+    if (!Array.isArray(body.steps)) {
         throw 'You must provide a array value for tag, ingredients and steps';
     }
 
@@ -42,8 +43,8 @@ const createPost = async (body) => {
         postedDate: Date.parse(body.postedDate),
         name: body.name,
         servings: body.servings,
-        time: body.time,
-        tag: body.tag,
+        prepare_time: body.prepare_time,
+        cook_time: body.cook_time,
         ingredients: body.ingredients,
         steps: body.steps,
         likes: [],

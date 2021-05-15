@@ -148,6 +148,19 @@ p {
     padding: 20px 50px;
 }
 
+#Register-box {
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15%;
+    background: lightgray;
+    padding: 20px 50px;
+}
+
 .login_bar {
+    margin: 10px;
+}
+
+.Register_bar{
     margin: 10px;
 }
