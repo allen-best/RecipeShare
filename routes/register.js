@@ -23,8 +23,8 @@ router.post('/', async(req, res) => {
     }
 });
 
-app.use('*', (req, res) => {
-    res.redirect('/');
-});
+// app.use('*', (req, res) => {
+//     res.redirect('/');
+// });
 
 module.exports = router;
