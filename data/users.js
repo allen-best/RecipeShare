@@ -16,7 +16,7 @@ const showErrorsMost = (body) => {
     }
 
     //makes sure all values are of correct type
-    if (typeof (body.firstName) !== "string" || typeof (body.lastName) !== "string" || typeof (body.email) !== "string" || typeof (body.gender) !== "string" || typeof (body.city) !== "string" || typeof (body.state) !== "string" || typeof (body.age) !== "string" || typeof (body.hashedPassword) !== "string") {
+    if (typeof(body.firstName) !== "string" || typeof(body.lastName) !== "string" || typeof(body.email) !== "string" || typeof(body.gender) !== "string" || typeof(body.city) !== "string" || typeof(body.state) !== "string" || typeof(body.age) !== "string" || typeof(body.hashedPassword) !== "string") {
         throw 'Error: must input correct types of values for required fields';
     }
 
@@ -25,7 +25,7 @@ const showErrorsMost = (body) => {
         throw 'Error: cannot enter spaces as values for required fields'
     }
 
-    //check body.age to make sure it over 0
+    //check age to make sure it is over 0
     if (body.age < 0) {
         throw 'Error: age should over 0';
     }
@@ -38,10 +38,10 @@ const showErrorsMost = (body) => {
 
 //does all checking for id field
 const showErrorsID = (id) => {
-    if (id === undefined || typeof (id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: the respective ID is invalid'
+    if (id === undefined || typeof(id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: the respective ID is invalid'
 }
 
-const createUser = async (body) => {
+const createUser = async(body) => {
     const hash = await bcrypt.hash(body.password, saltRounds);
     body.hashedPassword = hash;
     showErrorsMost(body);
@@ -78,12 +78,12 @@ const createUser = async (body) => {
     return updateIDUser;
 }
 
-const getAllUsers = async () => {
+const getAllUsers = async() => {
     const userCollection = await users();
     return await userCollection.find({}, { projection: { "hashedPassword": 0 } }).toArray();
 }
 
-const getUser = async (id) => {
+const getUser = async(id) => {
     if (id === undefined) throw 'Error: an ID must be provided';
     const userCollection = await users();
     console.log(id);
@@ -95,7 +95,7 @@ const getUser = async (id) => {
     return updateIDUser;
 }
 
-const removeUser = async (id) => {
+const removeUser = async(id) => {
     showErrorsID(id);
 
     let findUser = {
@@ -112,7 +112,7 @@ const removeUser = async (id) => {
     return { userId: id, deleted: true };
 }
 
-const updateUser = async (id, body) => {
+const updateUser = async(id, body) => {
     showErrorsID(id);
     showErrorsMost(body);
 
@@ -139,25 +139,11 @@ const updateUser = async (id, body) => {
     return updateIDUser;
 }
 
-// const updatePartialUser = async(id, body) => {
-//     showErrorsID(id);
-
-//     const userCollection = await users();
-
-//     const updatedInfo = await userCollection.updateOne({ _id: ObjectId(id) }, { $set: body });
-//     if (updatedInfo.modifiedCount === 0) throw 'Error: could not update user';
-
-//     const user = await getUser(ObjectId(id).toString());
-//     let updateIDUser = user;
-//     updateIDUser._id = ObjectId(updateIDUser._id).toString();
-//     return updateIDUser;
-// }
-
-const getUserByEmail = async (email) => {
+const getUserByEmail = async(email) => {
     if (!email) {
         throw 'You must provide email.';
     }
-    if (typeof (email) !== "string") {
+    if (typeof(email) !== "string") {
         throw 'You must provide a valid string value for email.';
     }
     email = email.toLowerCase();
@@ -171,7 +157,7 @@ const getUserByEmail = async (email) => {
     return updateIDUser;
 }
 
-const searchUser = async (keyword) => {
+const searchUser = async(keyword) => {
     return;
 }
 
@@ -181,7 +167,6 @@ module.exports = {
     getUser,
     removeUser,
     updateUser,
-    //updatePartialUser
     searchUser,
     getUserByEmail
 }

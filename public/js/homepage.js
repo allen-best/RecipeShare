@@ -1,19 +1,19 @@
-(function ($) {
+(function($) {
 
     let requestConfig = {
         method: 'GET',
         url: '/setup'
     };
-    $.ajax(requestConfig).then(function (responseMessage) {
+    $.ajax(requestConfig).then(function(responseMessage) {
         let response = $(responseMessage);
         let popularPost = response[0].data.popularPost;
         let recentPost = response[0].data.recentPost;
-        //creat popular list
+        //create popular list
         for (let i = 0; i < popularPost.length; i++) {
             let newItem = setListItem(popularPost[i]);
             $('#popularList').append(newItem);
         }
-        //creat recent list
+        //create recent list
         for (let i = 0; i < recentPost.length; i++) {
             let newItem = setListItem(recentPost[i]);
             $('#recentList').append(newItem);
@@ -49,26 +49,26 @@
                     type: type
                 })
             };
-            $.ajax(searchRequest).then(function (responseMessage) {
+            $.ajax(searchRequest).then(function(responseMessage) {
                 let response = $(responseMessage);
                 let searchPost = response[0].data;
-                if(!searchPost || searchPost.length === 0){
+                if (!searchPost || searchPost.length === 0) {
                     $('#noResultWarning').show();
-                }else {
+                } else {
                     $('#noResultWarning').hide();
-                for (let i = 0; i < searchPost.length; i++) {
-                    let post = searchPost[i];
-                    let name = post.name;
-                    let type = post.type;
-                    let id = post._id;
-                    let time = new Date(post.postedDate).toLocaleString('English', { hour12: false });
-                    let likes = post.likes.length;
-                    let servings = post.servings;
-                    let timeNeeded = post.time;
-                    let newItem = $(`<li>${name} &emsp; type: ${type} &emsp; ${likes} likes &emsp; 
+                    for (let i = 0; i < searchPost.length; i++) {
+                        let post = searchPost[i];
+                        let name = post.name;
+                        let type = post.type;
+                        let id = post._id;
+                        let time = new Date(post.postedDate).toLocaleString('English', { hour12: false });
+                        let likes = post.likes.length;
+                        let servings = post.servings;
+                        let timeNeeded = post.time;
+                        let newItem = $(`<li>${name} &emsp; type: ${type} &emsp; ${likes} likes &emsp; 
                     ${servings}servings &emsp; time needed: ${timeNeeded} &emsp; ${time} &emsp; <a href='/post/${id}'>View</a> </li>`);
-                    $('#resultList').append(newItem);
-                }
+                        $('#resultList').append(newItem);
+                    }
                 }
                 $('#resultDiv').show();
                 $('#homeLink').show();
@@ -78,5 +78,5 @@
         }
     });
 
-    
+
 })(jQuery);
