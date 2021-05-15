@@ -23,7 +23,7 @@ const errorThrowCreate = (body) => {
 
     // check for array inputs
     if (!Array.isArray(body.steps)) {
-        throw 'You must provide a array value for tag, ingredients and steps';
+        throw 'You must provide a array value for steps';
     }
 
     if (isNaN(Date.parse(body.postedDate))) throw 'You must provide a correct date';
@@ -197,7 +197,6 @@ const searchPost = async (keyword, type) => {
     await postCollection.createIndexes({
         name: 'text',
         steps: 'text',
-        tag: 'text',
         ingredients: 'text'
     });
     let result;
