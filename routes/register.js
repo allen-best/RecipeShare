@@ -17,11 +17,11 @@ router.post('/', async(req, res) => {
     try {
         let newUser = await user.createUser(req.body);
         const title = "User Created!";
-        req.session.user = { username: `${newUser.firstName} ${newUser.lastName}`, userid: 'test id' };
+        req.session.user = { username: `${newUser.firstName} ${newUser.lastName}`, userid: newUser._id };
         res.redirect("/");
     } catch (e) {
         console.log(e);
-        res.status(404).send();
+        res.status(404).send(e);
     }
 });
 
