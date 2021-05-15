@@ -1,26 +1,25 @@
 <header>
-  <div><a href="/">Recipe Share</a><a href="/profile/{{userInfo._id}}" style="float: right;">UserId: Hello123</a></div>
+  <div><a href="/">Recipe Share</a><a href="/profile/{{userInfo._id}}" style="float: right;">{{userInfo.email}}</a></div>
 
 </header>
 <h1>Profile</h1>
 <div style="height: 150px;">
   <img src="{{userInfo.image}}" alt="image" style="float:left;" height="100" width="100">
   <div>
-    <span>name</span>
-    <form action="/search" method="POST" class="new-post-form" style="float:right;">
+    <span>{{userInfo.firstName}} {{userInfo.lastName}}</span>
+    <a id="recipeLink" href="/register/edit">Edit Profile</a>
+    {{!-- <form action="/search" method="POST" class="new-post-form" style="float:right;">
       <button type="button" style="float:right;">Edit Profile</button>
-    </form>
-    <p>This is my bio!</p>
+    </form> --}}
+    <p>{{userInfo.email}}</p>
   </div>
 </div>
+<div style="height:50px; float:right">
+  <a id="recipeLink" href="/recipe-form">Create a new Recipe</a>
+</div>
+<br>
+<br>
 <main>
-  <div style="height: 50px;"><span>25 Following</span> <br> <span>50 Followers</span>
-    <form action="/search" method="POST" class="new-post-form" style="float:right;">
-      <button type="button" style="float:right;">Create a new recipe</button>
-      <br>
-      <button type="button" style="float:right;">Edit recipe</button>
-    </form>
-  </div>
   {{#if hasRecipe}}
   {{#each recipeList}}
   <div style="height: 150px;">
@@ -30,7 +29,7 @@
       <form action="/search" method="POST" class="new-post-form" style="float:right;">
         <button type="button" style="float:right;">Edit</button>
       </form>
-      <p>{{this.tag}}</p>
+      <p>{{this.ingredients}}</p>
     </div>
   </div>
   {{/each}}

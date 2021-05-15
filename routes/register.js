@@ -25,6 +25,27 @@ router.post('/', async(req, res) => {
     }
 });
 
+router.get('/edit', async(req, res) => {
+    try {
+        const title = "Edit an account on RecipeShare";
+        res.render('page/registrationForm', { title: title });
+    } catch (e) {
+        res.status(404);
+    }
+});
+
+router.post('/edit', async(req, res) => {
+    try {
+        let newUser = await user.createUser(req.body);
+        const title = "User Created!";
+        req.session.user = { username: `${newUser.firstName} ${newUser.lastName}`, userid: newUser._id };
+        res.redirect("/");
+    } catch (e) {
+        console.log(e);
+        res.status(404).send(e);
+    }
+});
+
 // app.use('*', (req, res) => {
 //     res.redirect('/');
 // });
