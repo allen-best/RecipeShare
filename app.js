@@ -106,6 +106,14 @@ app.use('/new-like', (req, res, next) => {
   }
 });
 
+app.use('/dislike', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
 app.use('/new-comment', (req, res, next) => {
   if (!req.session.user) {
     return res.redirect('/login');

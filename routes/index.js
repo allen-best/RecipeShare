@@ -71,7 +71,9 @@ const constructorMethod = (app) => {
 
     app.post('/new-comment', async(req, res) => {
         try {
-            let newComment = await comments.createComment(ObjectId(req.body.postId).toString(), { rating: req.body.rating, comment: req.body.comment });
+            let username = req.session.user.username;
+            let userId = ObjectId(req.session.user.userid).toString();
+            let newComment = await comments.createComment(ObjectId(req.body.postId).toString(), { rating: req.body.rating, comment: req.body.comment, username: username }, userId);
 
             if (newComment) {
                 res.json({ status: 'comment_created' });
