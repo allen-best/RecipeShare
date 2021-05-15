@@ -14,6 +14,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        console.log(req.body);
+        //add author
+        req.body.author_id = req.session.user.userid;
         let newPost = await posts.createPost(req.body);
         const title = "Recipe Created!";
         console.log("Post created.")

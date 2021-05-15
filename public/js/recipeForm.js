@@ -9,14 +9,15 @@
             let step2 = $('#step_2_input').val().trim();
             let step3 = $('#step_3_input').val().trim();
             let type = $('input[name=type_input]:checked').val();
-            let prepare_time = $('#prepare_time_input').val().trim();
+            let prepare_time = parseInt($('#prepare_time_input').val());
             let cook_time = parseInt($('#cook_time_input').val());
             let servings = parseInt($('#servings').val());
             console.log(typeof(cook_time));
             console.log(servings);
 
-            const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-
+            //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+            const utc = new Date();
+            
             let recipeRequest = {
                 method: 'POST',
                 url: '/recipe-form',
