@@ -1,0 +1,110 @@
+<main class="container">
+    <h1 class="main-text">{{title}}</h1>
+    <div class="formBox">
+        <form id="registrationForm">
+            <label for="firstName">
+                First Name:
+                <input type="text" name="firstName" id="firstName"/>
+            </label>
+            <label for="lastName">
+                Last Name:
+                <input type="text" name="lastName" id="lastName"/>
+            </label>
+            <label for="email">
+                Email:
+                <input type="email" name="email" id="email"/>
+            </label>
+            <div class='genderChoice'>
+                <input type='radio' id='male' name='type' value='male'>
+                <label for="male">Male</label>
+                <input type='radio' id='female' name='type' value='female'>
+                <label for="female">Female</label>
+                <input type='radio' id='nonbinary' name='type' value='nonbinary'>
+                <label for="nonbinary">Non-Binary</label>
+                <input type='radio' id='other' name='type' value='other'>
+                <label for="other">Other</label>
+                <input type='radio' id='notSay' name='type' value='notSay'>
+                <label for="notSay">Prefer not to say</label>
+            </div>
+            <label for="city">
+                City:
+                <input type="text" name="city" id="city"/>
+            </label>
+            <div class='stateChoice'>
+                <label for="state">
+                    State:
+                    <input type="text" name="state" id="state"/>
+                    <div class="dropdown">
+                        <button onclick="stateOptions()" class="stateChoice">Choose State</button>
+                        <div id="stateChoice" class="dropdown-content">
+                            <a href="#">Alabama</a>
+                            <a href="#">Alaska</a>
+                            <a href="#">Arizona</a>
+                            <a href="#">Arkansas</a>
+                            <a href="#">California</a>
+                            <a href="#">Colorado</a>
+                            <a href="#">Connecticut</a>
+                            <a href="#">Delaware</a>
+                            <a href="#">Florida</a>
+                            <a href="#">Georgia</a>
+                            <a href="#">Hawaii</a>
+                            <a href="#">Idaho</a>
+                            <a href="#">Illinois</a>
+                            <a href="#">Indiana</a>
+                            <a href="#">Iowa</a>
+                            <a href="#">Kansas</a>
+                            <a href="#">Kentucky</a>
+                            <a href="#">Louisiana</a>
+                            <a href="#">Maine</a>
+                            <a href="#">Maryland</a>
+                            <a href="#">Massachusetts</a>
+                            <a href="#">Michigan</a>
+                            <a href="#">Minnesota</a>
+                            <a href="#">Mississippi</a>
+                            <a href="#">Missouri</a>
+                            <a href="#">Montana</a>
+                            <a href="#">Nebraska</a>
+                            <a href="#">Nevada</a>
+                            <a href="#">New Hampshire</a>
+                            <a href="#">New Jersey</a>
+                            <a href="#">New Mexico</a>
+                            <a href="#">New York</a>
+                            <a href="#">North Carolina</a>
+                            <a href="#">North Dakota</a>
+                            <a href="#">Ohio</a>
+                            <a href="#">Oklahoma</a>
+                            <a href="#">Oregon</a>
+                            <a href="#">Pennsylvania</a>
+                            <a href="#">Rhode Island</a>
+                            <a href="#">South Carolina</a>
+                            <a href="#">South Dakota</a>
+                            <a href="#">Tennessee</a>
+                            <a href="#">Texas</a>
+                            <a href="#">Utah</a>
+                            <a href="#">Vermont</a>
+                            <a href="#">Virginia</a>
+                            <a href="#">Washington</a>
+                            <a href="#">West Virginia</a>
+                            <a href="#">Wisconsin</a>
+                            <a href="#">Wyoming</a>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <label for="age">
+                Age:
+                <input type="string" name="age" id="age"/>
+            </label>
+            <label for="password">
+                Password:
+                <input type="password" name="password" id="password"/>
+            </label>
+            <label for="confirmPassword">
+                Confirm Password:
+                <input type="password" name="password" id="password"/>
+            </label>
+            <button type="submit">Sign up</button>
+            <button type="reset">Clear info</button>
+        </form>
+    </div>
+</main>

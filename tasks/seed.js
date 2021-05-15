@@ -14,9 +14,9 @@ const main = async () => {
         "postedDate": new Date(new Date()-10*60*60*1000), 
         "name": "Whiskey Sour", 
         "servings": 1, 
-        "time": 5,
-        "tag": ["sweet", "sour", "texture"],
-        "ingredients": ["Bourbon Whiskey", "1 dash egg white", "Fresh lemon juice","Gomme Syrup"],
+        "cook_time": 30,
+        "prepare_time": 30,
+        "ingredients": "Bourbon Whiskey, 1 dash egg white, Fresh lemon juice, Gomme Syrup",
         "steps": ["Combine bourbon, lemon juice, and simple syrup in a cocktail shaker.",
         "Fill shaker with ice, cover, and shake vigorously until outside of shaker is very cold, about 20 seconds.", 
         "Strain cocktail through a Hawthorne strainer or a slotted spoon into an old-fashioned or rocks glass filled with ice. Garnish with orange wheel and cherry."]});
@@ -25,13 +25,12 @@ const main = async () => {
         "postedDate": new Date(new Date()-15*60*60*1000), 
         "name": "Cheeseburger", 
         "servings": 1, 
-        "time": 30,
-        "tag": ["stayhome", "inandout", "hungry"],
-        "ingredients": ["1 pound lean ground beef", "1 small yellow onion grated", "1/2 teaspoon seasoning salt","1/2 teaspoon fresh ground pepper", "1 slices american cheese", "1 hamburger bun seedless"],
+        "cook_time": 30,
+        "prepare_time": 30,
+        "ingredients": "1 pound lean ground beef, 1 small yellow onion grated, 1/2 teaspoon seasoning salt, 1/2 teaspoon fresh ground pepper, 1 slices american cheese, 1 hamburger bun seedless",
         "steps": ["In a large bowl, add ground beef, grated onion, worcestershire sauce, seasoning salt and pepper.",
-        "Using your hands or a fork, gently mix together.", "Shape mixture into thin patty.", 
-        "Place patties on grill or skillet and cook until no longer pink on the inside.",
-        "About 3-5 minutes per side. Place one piece of american cheese over the burger during the last minute of grilling"
+        "Using your hands or a fork, gently mix together. Shape mixture into thin patty.", 
+        "Place patties on grill or skillet and cook until no longer pink on the inside. About 3-5 minutes per side. Place one piece of american cheese over the burger during the last minute of grilling"
     ]});
 
     await likes.createLike(ObjectId(whiskeySour._id).toString());

@@ -6,7 +6,7 @@ const posts = data.postData;
 router.get('/', async (req, res) => {
     try {
         const title = "Create a Recipe";
-        res.render('page/recipeform', {title: title});
+        res.render('page/recipeform', {title: title, scriptFile: '<script src="/public/js/recipeForm.js"></script>' });
     } catch (e) {
         res.status(404);
     }
@@ -16,10 +16,18 @@ router.post('/', async (req, res) => {
     try {
         let newPost = await posts.createPost(req.body);
         const title = "Recipe Created!";
+        console.log("Post created.")
 
-        res.render('search/static', {title: title, searchTerm:searchTerm, shows:shows.slice(0, 19), isEmpty:false});
+        if (newPost) {
+            res.json({ status: 'post_created' });
+        } else {
+            res.json({ status: 'post_fail' });
+        }
+
     } catch (e) {
-        res.status(404);
+        console.log("Error: Post creation. " + e)
+        res.json({ status: 'post_fail' });
+        res.status(404).send(e);
     }
 });
 
