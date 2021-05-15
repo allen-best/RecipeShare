@@ -7,13 +7,13 @@ const ObjectId = require('mongodb').ObjectID;
 
 const errorThrowCreate = (body) => {
     if (body.type === undefined || body.postedDate === undefined || body.name === undefined || body.servings === undefined ||
-        body.cook_time === undefined || body.ingredients === undefined || body.steps === undefined || body.prepare_time === undefined) {
+        body.cook_time === undefined || body.ingredients === undefined || body.steps === undefined || body.prepare_time === undefined || body.author_name === undefined) {
         throw 'You must provide a value for all inputs.';
     }
 
     // check string inputs are strings
-    if (typeof (body.type) !== "string" || typeof (body.name) !== "string" || typeof (body.ingredients) !== "string" ||
-        body.type === "" || body.name === "" || body.ingredients === "") {
+    if (typeof (body.type) !== "string" || typeof (body.name) !== "string" || typeof (body.ingredients) !== "string" || typeof (body.author_name) !== "string" ||
+        body.type === "" || body.name === "" || body.ingredients === "" || body.author_name === "") {
         throw 'You must provide a valid string value for type and name.';
     }
 
@@ -51,6 +51,7 @@ const createPost = async (body) => {
         postedDate: Date.parse(body.postedDate),
         name: body.name,
         author_id: ObjectId(body.author_id),
+        author_name: body.author_name,
         servings: body.servings,
         prepare_time: body.prepare_time,
         cook_time: body.cook_time,

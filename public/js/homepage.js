@@ -1,10 +1,10 @@
-(function($) {
+(function ($) {
 
     let requestConfig = {
         method: 'GET',
         url: '/setup'
     };
-    $.ajax(requestConfig).then(function(responseMessage) {
+    $.ajax(requestConfig).then(function (responseMessage) {
         let response = $(responseMessage);
         let popularPost = response[0].data.popularPost;
         let recentPost = response[0].data.recentPost;
@@ -49,7 +49,7 @@
                     type: type
                 })
             };
-            $.ajax(searchRequest).then(function(responseMessage) {
+            $.ajax(searchRequest).then(function (responseMessage) {
                 let response = $(responseMessage);
                 let searchPost = response[0].data;
                 if (!searchPost || searchPost.length === 0) {
@@ -64,7 +64,7 @@
                         let time = new Date(post.postedDate).toLocaleString('English', { hour12: false });
                         let likes = post.likes.length;
                         let servings = post.servings;
-                        let timeNeeded = post.time;
+                        let timeNeeded = post.prepare_time + post.cook_time;
                         let newItem = $(`<li>${name} &emsp; ${type} &emsp; ${likes} likes &emsp; 
                     ${servings}servings &emsp; time needed: ${timeNeeded} &emsp; ${time} &emsp; <a href='/post/${id}'>View</a> </li>`);
                         $('#resultList').append(newItem);

@@ -2,25 +2,26 @@ const express = require('express');
 const router = express.Router();
 const postData = require('../data/posts');
 const userData = require('../data/users');
+const ObjectId = require('mongodb').ObjectID;
 
-
-router.get('/:id', async(req, res) => {
+router.get('/:id', async (req, res) => {
     let userID = req.params.id;
     try {
-        const userInfo = await userData.getUser(userID);
-        const image = userInfo.image;
+        const userInfo = await userData.getUser(ObjectId(userID).toString());
+        let image = userInfo.image;
         if (!image) {
             image = "../public/image/undefine_image.png";
         }
         //const image = "public/image/undefine_image.png";
         userInfo.image = image;
         const recipeIDListAll = userInfo.createdPosts;
+        //console.log(recipeIDListAll);
 
 
         let recipeList = [];
         let recipeListSize = recipeIDListAll.length;
         for (let index = 0; index < recipeListSize; index++) {
-            const recipe = await postData.getPost(recipeIDListAll[index]);
+            const recipe = await postData.getPost(ObjectId(recipeIDListAll[index].post_id).toString());
             if (!recipe.image) {
                 recipe.image = "../public/image/undefine_image.png";
             }
@@ -29,7 +30,7 @@ router.get('/:id', async(req, res) => {
 
         // sort function newest to Older
         function compare(pro) {
-            return function(obj1, obj2) {
+            return function (obj1, obj2) {
                 var val1 = obj1[pro];
                 var val2 = obj2[pro];
                 if (val1 > val2) {
@@ -50,6 +51,7 @@ router.get('/:id', async(req, res) => {
         }
         res.render('page/profile', { userInfo: userInfo, recipeList: recipeList, hasRecipe: hasRecipe });
     } catch (e) {
+        console.log(e);
         res.status(500).send();
         // res.render('page/error');
     }
