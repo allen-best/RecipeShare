@@ -15,6 +15,24 @@ router.get('/', async (req, res) => {
                 recipeList.push(element);
             }
         }
+
+        // sort function newest to Older
+        function compare(pro) { 
+            return function (obj1, obj2) { 
+                var val1 = obj1[pro]; 
+                var val2 = obj2[pro]; 
+                if (val1 > val2 ) { 
+                    return 1; 
+                } else if (val1 < val2 ) { 
+                    return -1; 
+                } else { 
+                    return 0; 
+                } 
+            } 
+        } 
+        
+        recipeList.sort(compare("postedDate")); 
+
         let hasRecipe = false;
         if (recipeList.length > 0) {
             hasRecipe = true;
