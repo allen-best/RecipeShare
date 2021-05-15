@@ -8,21 +8,33 @@ const ObjectId = require('mongodb').ObjectID;
 const getPost = async (postId) => {
     const postsData = require('./posts');
     const postInfo = await postsData.getPost(postId);
-    return postInfo 
+    return postInfo
 }
 
-const errorThrowID = ( id ) => {
-    if(id === undefined || typeof(id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: Invalid ID.'
+const errorThrowID = (id) => {
+    if (id === undefined || typeof (id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: Invalid ID.'
 }
 
-const createLike = async (postId) => {
+const errorThrowName = (username) => {
+    if (username === undefined || typeof (username) !== "string" || username === "") throw 'Error: Invalid username.'
+}
+
+const createLike = async (postId, username, userId) => {
     errorThrowID(postId);
+    errorThrowName(username);
+    errorThrowID(userId);
+
+    //check if user already like this post
+    let liked = await getLikeByUserId(postId, userId);
+    if (liked !== null) throw 'Already liked';
+
 
     const likeId = new ObjectId();
-    const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+    const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
     let newLike = {
         _id: likeId,
-        name: likeId,
+        name: username,
+        author_id: ObjectId(userId),
         dateOfLike: utc,
     };
 
@@ -30,7 +42,7 @@ const createLike = async (postId) => {
 
     const updatedInfo = await postCollection.updateOne(
         { _id: ObjectId(postId) },
-        { $push: {"likes": newLike }}
+        { $push: { "likes": newLike } }
     );
     if (updatedInfo.modifiedCount === 0) {
         throw 'Could not update post successfully';
@@ -50,21 +62,36 @@ const getAllLikes = async (postId) => {
 
     return post.likes;
 }
-
-const removeLike = async (id) => {
-    errorThrowID(id);
+const getLikeByUserId = async (postId, userId) => {
+    errorThrowID(postId);
+    errorThrowID(userId);
     const postCollection = await posts();
-    const deletionInfo = await postCollection.findOneAndUpdate(
-        { likes: { $elemMatch : { _id : ObjectId(id) } } },
-        { $pull: { likes: { _id: ObjectId(id) } }}
-    );
-    if (deletionInfo.modifiedCount === 0) throw `Could not delete like with id of ${id}`;
+    const like = await postCollection.findOne({ _id: ObjectId(postId), 'likes.author_id': ObjectId(userId) });
+    //return post if already like, return null if have not like
+    return like;
+}
 
-    return { postId: id, deleted: true };
+const removeLike = async (postId, userId) => {
+    errorThrowID(postId);
+    errorThrowID(userId);
+    const postCollection = await posts();
+
+    //check if exist like in this post
+    let liked = await getLikeByUserId(postId, userId);
+    if (liked === null) throw 'no like in this post';
+
+    const deletionInfo = await postCollection.updateOne({ _id: ObjectId(postId), 'likes.author_id': ObjectId(userId) },
+        { $pull: { "likes": { "author_id": ObjectId(userId) } } });
+
+    console.log(deletionInfo.modifiedCount);
+    if (deletionInfo.modifiedCount === 0) throw `Could not delete like with userId of ${userId}`;
+
+    return { postId: postId, deleted: true };
 }
 
 module.exports = {
     createLike,
     getAllLikes,
-    removeLike
+    removeLike,
+    getLikeByUserId
 };
