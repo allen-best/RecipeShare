@@ -1,26 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const data = require('../data');
-const user = data.userData;
+//const xss = require('xss');
+const user = require('../data/users');
+//const postData = require('../data/posts');
 
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     try {
-        
-        res.render('page/register');
+        const title = "Create an account on RecipeShare";
+        res.render('page/registrationForm', { title: title });
     } catch (e) {
         res.status(404);
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     try {
         let newUser = await user.createUser(req.body);
         const title = "User Created!";
-
+        req.session.user = { username: `${newUser.firstName} ${newUser.lastName}`, userid: newUser._id };
         res.redirect("/");
     } catch (e) {
-        res.status(404);
+        console.log(e);
+        res.status(404).send(e);
     }
 });
+
+// app.use('*', (req, res) => {
+//     res.redirect('/');
+// });
 
 module.exports = router;

@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     if (!user) {
         toolbar = `<h2>Hi! <a href='/login'>Sign in</a> or <a href='/register'>register</a></h2>`;
     } else {
-        toolbar = `<h2>Hi, ${user.username} ! &emsp; <a href='/logout'>Sign out</a></h2>`;
+        toolbar = `<h2>Hi, ${user.username} ! &emsp; <a href='/profile/${user.userid}' > My profile </a> &emsp; <a href='/logout'>Sign out</a></h2>`;
     }
     res.render('page/homepage', { scriptFile: '<script src="/public/js/homepage.js"></script>', toolBar: toolbar });
 });

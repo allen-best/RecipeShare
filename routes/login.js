@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const saltRounds = 16;
 const xss = require('xss');
-//const userDB = require('../data/users.js');
-//const userDB = require('../test_userDB.js');
+const userDB = require('../data/users.js');
+
 
 
 router.get('/', async (req, res) => {
@@ -24,21 +24,14 @@ router.post('/', async (req, res) => {
     const password = xss(req.body.password);
 
     let authenticated = false;
-    
+
     //check the email and password
-    let user;
-    try {
-        user = await userDB.getUserByEmail(email);
-    } catch (e) {
-        console.log(e);
-        res.json({ status: 'login_fail' });
-        return;
-    }
+    let user = await userDB.getUserByEmail(email);
     if (user) { //exist
         authenticated = await bcrypt.compare(password, user.hashedPassword);
     }
     if (authenticated === true) {
-        req.session.user = { username: `${user.firstName} ${user.lastName}`, userid: 'test id' }; //update later
+        req.session.user = { username: `${user.firstName} ${user.lastName}`, userid: user._id }; //update later
         res.json({ status: 'login_success' });
     } else {
         res.json({ status: 'login_fail' });

@@ -57,6 +57,50 @@ app.use(
 );
 
 
+app.use('/login', (req, res, next) => {
+  if (req.session.user) {
+    return res.redirect('/');
+  } else {
+    next();
+  }
+});
+
+app.use('/logout', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
+app.use('/recipe-form', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
+app.use('/profile', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
+/*
+app.use('/post', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  } else {
+    next();
+  }
+});
+*/
+
+
+
 configRoutes(app);
 
 app.listen(3000, () => {

@@ -1,110 +1,128 @@
 <main class="container">
     <h1 class="main-text">{{title}}</h1>
     <div class="formBox">
-        <form id="registrationForm">
+        <br>
+        <br>
+        <form method="POST" action="/register" id="registrationForm">
             <label for="firstName">
                 First Name:
                 <input type="text" name="firstName" id="firstName"/>
             </label>
+            <br>
             <label for="lastName">
                 Last Name:
                 <input type="text" name="lastName" id="lastName"/>
             </label>
+            <br>
             <label for="email">
                 Email:
                 <input type="email" name="email" id="email"/>
             </label>
+            <br>
             <div class='genderChoice'>
-                <input type='radio' id='male' name='type' value='male'>
+                <input type='radio' id='male' name='gender' value='male'>
                 <label for="male">Male</label>
-                <input type='radio' id='female' name='type' value='female'>
+                <input type='radio' id='female' name='gender' value='female'>
                 <label for="female">Female</label>
-                <input type='radio' id='nonbinary' name='type' value='nonbinary'>
+                <input type='radio' id='nonbinary' name='gender' value='nonbinary'>
                 <label for="nonbinary">Non-Binary</label>
-                <input type='radio' id='other' name='type' value='other'>
+                <input type='radio' id='other' name='gender' value='other'>
                 <label for="other">Other</label>
-                <input type='radio' id='notSay' name='type' value='notSay'>
+                <input type='radio' id='notSay' name='gender' value='notSay'>
                 <label for="notSay">Prefer not to say</label>
             </div>
+            <br>
             <label for="city">
                 City:
                 <input type="text" name="city" id="city"/>
             </label>
+            <br>
             <div class='stateChoice'>
                 <label for="state">
                     State:
-                    <input type="text" name="state" id="state"/>
-                    <div class="dropdown">
-                        <button onclick="stateOptions()" class="stateChoice">Choose State</button>
-                        <div id="stateChoice" class="dropdown-content">
-                            <a href="#">Alabama</a>
-                            <a href="#">Alaska</a>
-                            <a href="#">Arizona</a>
-                            <a href="#">Arkansas</a>
-                            <a href="#">California</a>
-                            <a href="#">Colorado</a>
-                            <a href="#">Connecticut</a>
-                            <a href="#">Delaware</a>
-                            <a href="#">Florida</a>
-                            <a href="#">Georgia</a>
-                            <a href="#">Hawaii</a>
-                            <a href="#">Idaho</a>
-                            <a href="#">Illinois</a>
-                            <a href="#">Indiana</a>
-                            <a href="#">Iowa</a>
-                            <a href="#">Kansas</a>
-                            <a href="#">Kentucky</a>
-                            <a href="#">Louisiana</a>
-                            <a href="#">Maine</a>
-                            <a href="#">Maryland</a>
-                            <a href="#">Massachusetts</a>
-                            <a href="#">Michigan</a>
-                            <a href="#">Minnesota</a>
-                            <a href="#">Mississippi</a>
-                            <a href="#">Missouri</a>
-                            <a href="#">Montana</a>
-                            <a href="#">Nebraska</a>
-                            <a href="#">Nevada</a>
-                            <a href="#">New Hampshire</a>
-                            <a href="#">New Jersey</a>
-                            <a href="#">New Mexico</a>
-                            <a href="#">New York</a>
-                            <a href="#">North Carolina</a>
-                            <a href="#">North Dakota</a>
-                            <a href="#">Ohio</a>
-                            <a href="#">Oklahoma</a>
-                            <a href="#">Oregon</a>
-                            <a href="#">Pennsylvania</a>
-                            <a href="#">Rhode Island</a>
-                            <a href="#">South Carolina</a>
-                            <a href="#">South Dakota</a>
-                            <a href="#">Tennessee</a>
-                            <a href="#">Texas</a>
-                            <a href="#">Utah</a>
-                            <a href="#">Vermont</a>
-                            <a href="#">Virginia</a>
-                            <a href="#">Washington</a>
-                            <a href="#">West Virginia</a>
-                            <a href="#">Wisconsin</a>
-                            <a href="#">Wyoming</a>
+                            <select name='state'>
+                                <option name='state' value="CS">Choose State</option>
+                                <option name='state' value="AL">Alabama</option>
+                                <option name='state' value="AK">Alaska</option>
+                                <option name='state' value="AZ">Arizona</option>
+                                <option name='state' value="AR">Arkansas</option>
+                                <option name='state' value="AS">American Samoa</option>
+                                <option name='state' value="CA">California</option>
+                                <option name='state' value="CO">Colorado</option>
+                                <option name='state' value="CT">Connecticut</option>
+                                <option name='state' value="DE">Delaware</option>
+                                <option name='state' value="FL">Florida</option>
+                                <option name='state' value="GA">Georgia</option>
+                                <option name='state' value="GU">Guam</option>
+                                <option name='state' value="HI">Hawaii</option>
+                                <option name='state' value="ID">Idaho</option>
+                                <option name='state' value="IL">Illinois</option>
+                                <option name='state' value="IN">Indiana</option>
+                                <option name='state' value="IA">Iowa</option>
+                                <option name='state' value="KS">Kansas</option>
+                                <option name='state' value="KY">Kentucky</option>
+                                <option name='state' value="LA">Louisiana</option>
+                                <option name='state' value="ME">Maine</option>
+                                <option name='state' value="MP">Mariana Islands (Northern)</option>
+                                <option name='state' value="MD">Maryland</option>
+                                <option name='state' value="MA">Massachusetts</option>
+                                <option name='state' value="MI">Michigan</option>
+                                <option name='state' value="MN">Minnesota</option>
+                                <option name='state' value="MS">Mississippi</option>
+                                <option name='state' value="MO">Missouri</option>
+                                <option name='state' value="MT">Montana</option>
+                                <option name='state' value="NE">Nebraska</option>
+                                <option name='state' value="NV">Nevada</option>
+                                <option name='state' value="NH">New Hampshire</option>
+                                <option name='state' value="NJ">New Jersey</option>
+                                <option name='state' value="NM">New Mexico</option>
+                                <option name='state' value="NY">New York</option>
+                                <option name='state' value="NC">North Carolina</option>
+                                <option name='state' value="ND">North Dakota</option>
+                                <option name='state' value="OH">Ohio</option>
+                                <option name='state' value="OK">Oklahoma</option>
+                                <option name='state' value="OR">Oregon</option>
+                                <option name='state' value="PA">Pennsylvania</option>
+                                <option name='state' value="PR">Puerto Rico</option>
+                                <option name='state' value="RI">Rhode Island</option>
+                                <option name='state' value="SC">South Carolina</option>
+                                <option name='state' value="SD">South Dakota</option>
+                                <option name='state' value="TN">Tennessee</option>
+                                <option name='state' value="TX">Texas</option>
+                                <option name='state' value="UM">United States Minor Outlying Islands</option>
+                                <option name='state' value="UT">Utah</option>
+                                <option name='state' value="VI">Virgin Islands</option>
+                                <option name='state' value="VT">Vermont</option>
+                                <option name='state' value="VA">Virginia</option>
+                                <option name='state' value="WA">Washington</option>
+                                <option name='state' value="WV">West Virginia</option>
+                                <option name='state' value="WI">Wisconsin</option>
+                                <option name='state' value="WY">Wyoming</option>
+                            </select>
                         </div>
                     </div>
                 </label>
             </div>
+            <br>
             <label for="age">
                 Age:
                 <input type="string" name="age" id="age"/>
             </label>
+            <br>
             <label for="password">
                 Password:
                 <input type="password" name="password" id="password"/>
             </label>
-            <label for="confirmPassword">
+            <br>
+            {{!-- <label for="confirmPassword">
                 Confirm Password:
                 <input type="password" name="password" id="password"/>
-            </label>
-            <button type="submit">Sign up</button>
-            <button type="reset">Clear info</button>
+            </label> --}}
+            <br>
+            <br>
+            <br>
+            <button type="submit" class="signup">Sign up</button>
+            <button type="reset" class="clear">Clear info</button>
         </form>
     </div>
 </main>

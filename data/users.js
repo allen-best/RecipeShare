@@ -11,19 +11,23 @@ const uuid = require('uuid')
 
 const showErrorsMost = (body) => {
     //show error when any required field is missing
-    if (body.firstName === undefined || body.lastName === undefined || body.email === undefined || body.gender === undefined || body.city === undefined || body.state === undefined || body.age === undefined || body.hashedPassword === undefined) {
-        //MIGHT HAVE TO GET RID OF HASHED PASSWORD FROM LINE ABOVE
+    if (body.firstName === undefined || body.lastName === undefined || body.email === undefined || body.gender === undefined || body.city === undefined || body.state === undefined || body.age === undefined || body.password === undefined) {
         throw 'Error: must provide all required fields';
     }
 
     //makes sure all values are of correct type
-    if (typeof(body.firstName) !== "string" || typeof(body.lastName) !== "string" || typeof(body.email) !== "string" || typeof(body.gender) !== "string" || typeof(body.city) !== "string" || typeof(body.state) !== "string" || typeof(body.age) !== "string" || typeof(body.hashedPassword) !== "string") {
+    if (typeof (body.firstName) !== "string" || typeof (body.lastName) !== "string" || typeof (body.email) !== "string" || typeof (body.gender) !== "string" || typeof (body.city) !== "string" || typeof (body.state) !== "string" || typeof (body.age) !== "string" || typeof (body.hashedPassword) !== "string") {
         throw 'Error: must input correct types of values for required fields';
     }
 
     //makes sure user does not input whitespace/only spaces as input values
-    if (body.firstName === "" || body.lastName === "" || body.email === "" || body.gender === "" || body.city === "" || body.state === "" || body.age === "" || body.hashedPassword === "") {
+    if (body.firstName === "" || body.lastName === "" || body.email === "" || body.gender === "" || body.city === "" || body.state === "" || body.age === "" || body.password === "") {
         throw 'Error: cannot enter spaces as values for required fields'
+    }
+
+    //check body.age to make sure it over 0
+    if (body.age < 0) {
+        throw 'Error: age should over 0';
     }
 
     //makes sure likedPosts and createdPosts are arrays - cannot show error if either array has a length < 0 because user might just not have liked or created any posts
@@ -34,15 +38,21 @@ const showErrorsMost = (body) => {
 
 //does all checking for id field
 const showErrorsID = (id) => {
-    if (id === undefined || typeof(id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: the respective ID is invalid'
+    if (id === undefined || typeof (id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: the respective ID is invalid'
 }
 
-const createUser = async(body) => {
+const createUser = async (body) => {
     const hash = await bcrypt.hash(body.password, saltRounds);
     body.hashedPassword = hash;
     showErrorsMost(body);
 
     const userCollection = await users();
+
+    body.email = body.email.toLowerCase();
+    let reg = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
+    if (!reg.test(body.email)) throw 'Error: email should in correct form';
+    let repetition = await getUserByEmail(body.email);
+    if (repetition) throw 'Error: email address already used'
 
     let newUser = {
         firstName: body.firstName,
@@ -68,12 +78,12 @@ const createUser = async(body) => {
     return updateIDUser;
 }
 
-const getAllUsers = async() => {
+const getAllUsers = async () => {
     const userCollection = await users();
     return await userCollection.find({}, { projection: { "hashedPassword": 0 } }).toArray();
 }
 
-const getUser = async(id) => {
+const getUser = async (id) => {
     if (id === undefined) throw 'Error: an ID must be provided';
     const userCollection = await users();
     console.log(id);
@@ -85,7 +95,7 @@ const getUser = async(id) => {
     return updateIDUser;
 }
 
-const removeUser = async(id) => {
+const removeUser = async (id) => {
     showErrorsID(id);
 
     let findUser = {
@@ -102,7 +112,7 @@ const removeUser = async(id) => {
     return { userId: id, deleted: true };
 }
 
-const updateUser = async(id, body) => {
+const updateUser = async (id, body) => {
     showErrorsID(id);
     showErrorsMost(body);
 
@@ -143,7 +153,25 @@ const updateUser = async(id, body) => {
 //     return updateIDUser;
 // }
 
-const searchUser = async(keyword) => {
+const getUserByEmail = async (email) => {
+    if (!email) {
+        throw 'You must provide email.';
+    }
+    if (typeof (email) !== "string") {
+        throw 'You must provide a valid string value for email.';
+    }
+    email = email.toLowerCase();
+    const userCollection = await users();
+
+    const user = await userCollection.findOne({ email: email });
+
+    if (!user) return undefined;
+    let updateIDUser = user;
+    updateIDUser._id = ObjectId(updateIDUser._id).toString();
+    return updateIDUser;
+}
+
+const searchUser = async (keyword) => {
     return;
 }
 
@@ -154,5 +182,6 @@ module.exports = {
     removeUser,
     updateUser,
     //updatePartialUser
-    searchUser
+    searchUser,
+    getUserByEmail
 }
