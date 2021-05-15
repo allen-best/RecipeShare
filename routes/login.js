@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 16;
 const xss = require('xss');
 //const userDB = require('../data/users.js');
-const userDB = require('../test_userDB.js');
+//const userDB = require('../test_userDB.js');
 
 
 router.get('/', async (req, res) => {
