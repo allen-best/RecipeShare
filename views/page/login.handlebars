@@ -1,21 +1,21 @@
-<div>
+<div id="login-box">
     <h1>Login</h1>
     <form id="loginForm">
-        <div>
+        <div class='login_bar'>
             <label for='email'>Email:</label>
             <input name='email' id='email' type='text' required>
         </div>
 
-        <div>
+        <div class='login_bar'>
             <label for='password'>Password:</label>
             <input name='password' id='password' type='password' required>
         </div>
-        <div>
+        <div class='login_bar'>
             <button type="submit">Sign in</button>
         </div>
 
     </form>
 
-    <div id="errorMsg" class="error"></div>
-    <a href= "/register">Click here to register.</a>
+    <div id="errorMsg" class="error login_bar"></div>
+    <a href="/register">Click here to register.</a>
 </div>
