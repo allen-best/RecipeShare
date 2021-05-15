@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-sm-12">
+        <h1 class="main-text">{{title}}</h1>
+        <main>
+            <dl>
+                <dt>Type</dt>
+                <dd>{{post.type}}</dd>
+                <dt>Posted Date</dt>
+                <dd>{{post.postedDate}}</dd>
+                <dt>Servings</dt>
+                <dd>{{post.servings}}</dd>
+                <dt>Prepare Time</dt>
+                <dd>{{post.prepare_time}}</dd>
+                <dt>Cook Time</dt>
+                <dd>{{post.cook_time}}</dd>
+                <dt>Ingredients</dt>
+                <dd>{{post.ingredients}}</dd>
+                <dt>Steps</dt>
+                <ul>
+                    {{#each post.steps}}
+                        <li>
+                            {{this}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </dl>
+
+            <div id='commentsDiv'>
+                <h2>Comments:</h2>
+                <ul id="commentsList">
+                    {{#each post.comments}}
+                        <li>
+                            {{#with this}}
+                                {{comment}} - Rating: {{rating}}
+                            {{/with}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+            <div class="form-container">
+                <form id="likeForm">
+                    <div class="form-group">
+                        <input id="like_id" value="{{postId}}" hidden></input>
+                        <button type="submit" class="btn btn-default"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                            </svg>
+                            {{post.likes.length}}
+                        </button>
+                    </div>
+                </form>
+                <form id="commentForm">
+                    <div class="form-group">
+                        <input id="comment_id" value="{{postId}}" hidden></input>
+                        <label for="rating">Rating(1-5):</label>
+                        <select class="form-control" id="rating">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="formLabel" for="comment_input">Comment</label>
+                        <textarea class="form-control" id="comment_input" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <a href="/">Go back home</a>
+        </main>
+  </div>
+</div>

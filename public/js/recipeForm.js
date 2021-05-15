@@ -17,7 +17,7 @@
 
             const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 
-            let loginRequest = {
+            let recipeRequest = {
                 method: 'POST',
                 url: '/recipe-form',
                 contentType: 'application/json',
@@ -33,13 +33,13 @@
                 })
             };
 
-            $.ajax(loginRequest).then(function (responseMessage) {
+            $.ajax(recipeRequest).then(function (responseMessage) {
                 let response = $(responseMessage);
                 console.log(response);
                 let status = response[0].status;
-                if (status === 'post_created') { //login success
+                if (status === 'post_created') { 
                     window.location.href = '/';
-                } else {//login fail
+                } else {
                     $('#errorMsg').text("Sorry, the post wasn't able to bbe created.");
                 }
             });
