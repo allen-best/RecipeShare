@@ -10,6 +10,7 @@ router.get('/', async(req, res) => {
         res.render('page/registrationForm', { title: title });
     } catch (e) {
         res.status(404);
+        // res.render('page/error');
     }
 });
 
@@ -22,6 +23,7 @@ router.post('/', async(req, res) => {
     } catch (e) {
         console.log(e);
         res.status(404).send(e);
+        // res.render('page/error');
     }
 });
 
