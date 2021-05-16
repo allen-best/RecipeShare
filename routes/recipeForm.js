@@ -11,10 +11,10 @@ router.get('/:type', async(req, res) => {
         } else if (req.params.type === 'edit') {
             title = "Edit a Recipe";
         }
+        console.log(req.query.postInfo)
+        let postInfo = req.query.postInfo ? req.query.postInfo : "{}";
 
-        console.log(JSON.stringify(req.query.postInfo));
-
-        res.render('page/recipeform', { title: title, type: req.params.type, postInfo: JSON.parse(req.query.postInfo), scriptFile: '<script src="/public/js/recipeForm.js"></script>' });
+        res.render('page/recipeform', { title: title, type: req.params.type, postInfo: JSON.parse(postInfo), scriptFile: '<script src="/public/js/recipeForm.js"></script>' });
     } catch (e) {
         console.log(e);
         res.status(404);
