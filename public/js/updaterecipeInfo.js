@@ -5,8 +5,10 @@
     let form = $('#updateUserInfoForm');
 
     $(document).ready(function () {
-        if ($('#recipeLink').val()) {
-            
+        if ($('#recipeLink')) {
+            if ($('#recipeLink').attr('data-me') === $('#myLink').attr('data-me')) {
+                $('#editrecipeLink').show();
+            }
         }
 
     });

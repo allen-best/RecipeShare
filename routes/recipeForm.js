@@ -48,7 +48,23 @@ router.post('/', async(req, res) => {
     }
 });
 
-router.put('/', async(req, res) => {
+router.get('/:id', async(req, res) => {
+    let postID = req.params.id;
+
+    try {
+        const userInfo = await posts.get(postID);
+
+        const title = "Edit an account on RecipeShare";
+        res.render('page/editRecipeform', { title: title, userInfo:userInfo });
+    } catch (e) {
+        res.status(404);
+        res.render('page/error');
+    }
+        
+});
+
+router.patch('/:id', async(req, res) => {
+
     try {
         console.log(req.body);
         //add author
