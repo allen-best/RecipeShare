@@ -36,6 +36,33 @@ const showErrorsMost = (body) => {
     // }
 }
 
+const showErrorsMost2 = (body) => {
+    //show error when any required field is missing
+    if (body.firstName === undefined || body.lastName === undefined ||  body.gender === undefined || body.city === undefined || body.state === undefined || body.age === undefined || body.password === undefined) {
+        throw 'Error: must provide all required fields';
+    }
+
+    //makes sure all values are of correct type
+    if (typeof(body.firstName) !== "string" || typeof(body.lastName) !== "string" ||  typeof(body.gender) !== "string" || typeof(body.city) !== "string" || typeof(body.state) !== "string" || typeof(body.age) !== "string" || typeof(body.hashedPassword) !== "string") {
+        throw 'Error: must input correct types of values for required fields';
+    }
+
+    //makes sure user does not input whitespace/only spaces as input values
+    if (body.firstName === "" || body.lastName === "" ||  body.gender === "" || body.city === "" || body.state === "" || body.age === "" || body.password === "") {
+        throw 'Error: cannot enter spaces as values for required fields'
+    }
+
+    //check age to make sure it is over 0
+    if (body.age < 0) {
+        throw 'Error: age should be over 0';
+    }
+
+    //makes sure likedPosts and createdPosts are arrays - cannot show error if either array has a length < 0 because user might just not have liked or created any posts
+    // if (!Array.isArray(body.likedPosts) || !Array.isArray(body.createdPosts)) {
+    //     throw 'Error: must input correct types of values for required fields';
+    // }
+}
+
 //does all checking for id field
 const showErrorsID = (id) => {
     if (id === undefined || typeof(id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: the respective ID is invalid'
@@ -113,21 +140,20 @@ const removeUser = async(id) => {
 }
 
 const updateUser = async(id, body) => {
+    const hash = await bcrypt.hash(body.password, saltRounds);
+    body.hashedPassword = hash;
     showErrorsID(id);
-    showErrorsMost(body);
+    showErrorsMost2(body);
 
     const userCollection = await users();
     const updateUser = {
         firstName: body.firstName,
         lastName: body.lastName,
-        email: body.email,
         gender: body.gender,
         city: body.city,
         state: body.state,
         age: body.age,
-        hashedPassword: body.hashedPassword,
-        likedPosts: [],
-        createdPosts: []
+        hashedPassword: body.hashedPassword
     };
 
     const updatedInfo = await userCollection.updateOne({ _id: ObjectId(id) }, { $set: updateUser });

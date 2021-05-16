@@ -33,9 +33,9 @@ router.get('/:id', async (req, res) => {
             return function (obj1, obj2) {
                 var val1 = obj1[pro];
                 var val2 = obj2[pro];
-                if (val1 > val2) {
+                if (val1 < val2) {
                     return 1;
-                } else if (val1 < val2) {
+                } else if (val1 > val2) {
                     return -1;
                 } else {
                     return 0;
