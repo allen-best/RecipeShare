@@ -48,25 +48,15 @@ router.post('/', async(req, res) => {
     }
 });
 
-<<<<<<< HEAD
 router.put('/', async(req, res) => {
-=======
-router.patch('/:id', async(req, res) => {
->>>>>>> 48a64a132057a4721847aaf8e215af3a8d866a14
     try {
         console.log(req.body);
         //add author
         req.body.author_id = req.session.user.userid;
         req.body.author_name = req.session.user.username;
-<<<<<<< HEAD
         let newPost = await posts.updatePost(req.body.postID, req.body);
         const title = "Recipe Created!";
         console.log("Post updated.")
-=======
-        let newPost = await posts.createPost(req.body);
-        const title = "Recipe Created!";
-        console.log("Post created.")
->>>>>>> 48a64a132057a4721847aaf8e215af3a8d866a14
 
         if (newPost) {
             res.json({ status: 'post_created' });
@@ -77,11 +67,7 @@ router.patch('/:id', async(req, res) => {
         }
 
     } catch (e) {
-<<<<<<< HEAD
         console.log("Error: Post update. " + e)
-=======
-        console.log("Error: Post creation. " + e)
->>>>>>> 48a64a132057a4721847aaf8e215af3a8d866a14
         res.json({ status: 'post_fail' });
         // return;
         res.render('page/error');

@@ -7,7 +7,6 @@ const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 
 const handlebarsInstance = exphbs.create({
-<<<<<<< HEAD
     defaultLayout: 'main',
     // Specify helpers which are only registered on this instance.
     helpers: {
@@ -26,22 +25,6 @@ const handlebarsInstance = exphbs.create({
         json: (value) => {
             return JSON.stringify(value);
         }
-=======
-  defaultLayout: 'main',
-  // Specify helpers which are only registered on this instance.
-  helpers: {
-    asJSON: (obj, spacing) => {
-      if (typeof spacing === 'number')
-        return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
-
-      return new Handlebars.SafeString(JSON.stringify(obj));
-    },
-    isnull: (value) => {
-      return value !== null;
-    },
-    isempty: (value) => {
-      return value.length !== 0;
->>>>>>> 48a64a132057a4721847aaf8e215af3a8d866a14
     }
 });
 
@@ -144,11 +127,11 @@ app.use('/new-comment', (req, res, next) => {
 
 
 app.use('/register/edit', (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect('/login');
-  } else {
-    next();
-  }
+    if (!req.session.user) {
+        return res.redirect('/login');
+    } else {
+        next();
+    }
 });
 
 

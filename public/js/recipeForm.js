@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
     $('#recipeForm').submit((event) => {
         try {
             console.log("here");
@@ -12,28 +12,25 @@
             let prepare_time = parseInt($('#prepare_time_input').val());
             let cook_time = parseInt($('#cook_time_input').val());
             let servings = parseInt($('#servings').val());
-            console.log(typeof (cook_time));
+            console.log(typeof(cook_time));
             console.log(servings);
 
-<<<<<<< HEAD
             let create_type = $('#create-type').val();
             let postInfoId = $('#postInfoID').val();
 
             //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
             const utc = new Date();
-=======
             if (!name || !ingredients || !(step1 || step2 || step3) || !type || !prepare_time || !cook_time || !servings) {
                 $('#errorMsg').text("Please input required parts!");
                 return;
             }
-            if (prepare_time <= 0 || cook_time <= 0 || servings <= 0){
+            if (prepare_time <= 0 || cook_time <= 0 || servings <= 0) {
                 $('#errorMsg').text("Time should over 0");
                 return;
             }
 
-                //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-                const utc = new Date();
->>>>>>> 48a64a132057a4721847aaf8e215af3a8d866a14
+            //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+            const utc = new Date();
 
             if (create_type === "create") {
 
@@ -54,7 +51,6 @@
                     })
                 };
 
-<<<<<<< HEAD
                 $.ajax(recipeRequest).then(function(responseMessage) {
                     let response = $(responseMessage);
                     console.log(response);
@@ -66,18 +62,6 @@
                     }
                 });
             } else if (create_type === "edit") {
-=======
-            $.ajax(recipeRequest).then(function (responseMessage) {
-                let response = $(responseMessage);
-                console.log(response);
-                let status = response[0].status;
-                if (status === 'post_created') {
-                    window.location.href = '/';
-                } else {
-                    $('#errorMsg').text("Sorry, the post wasn't able to be created.");
-                }
-            });
->>>>>>> 48a64a132057a4721847aaf8e215af3a8d866a14
 
                 //post updated recipe request
                 let recipeRequestUpdate = {
@@ -97,11 +81,7 @@
                     })
                 };
 
-<<<<<<< HEAD
                 $.ajax(recipeRequestUpdate).then(function(responseMessage) {
-=======
-            $.ajax(recipeRequestUpdate).then(function (responseMessage) {
->>>>>>> 48a64a132057a4721847aaf8e215af3a8d866a14
 
                     // let formData = $(this).serialize();
                     // let formAction = $(this).attr('action');
