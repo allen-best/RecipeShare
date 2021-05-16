@@ -33,9 +33,9 @@ router.get('/:id', async(req, res) => {
             return function(obj1, obj2) {
                 var val1 = obj1[pro];
                 var val2 = obj2[pro];
-                if (val1 > val2) {
+                if (val1 < val2) {
                     return 1;
-                } else if (val1 < val2) {
+                } else if (val1 > val2) {
                     return -1;
                 } else {
                     return 0;
@@ -49,7 +49,13 @@ router.get('/:id', async(req, res) => {
         if (recipeList.length > 0) {
             hasRecipe = true;
         }
-        res.render('page/profile', { userInfo: userInfo, recipeList: recipeList, hasRecipe: hasRecipe });
+        let isME = false;
+        if (req.session.user.userid === req.params.id){
+            isME = true;
+        }
+        const myid = req.session.user.userid;
+        const myname = req.session.user.username;
+        res.render('page/profile', { userInfo: userInfo, recipeList: recipeList, hasRecipe: hasRecipe, isME:isME, myid:myid, myname:myname });
     } catch (e) {
         console.log(e);
         res.status(500);

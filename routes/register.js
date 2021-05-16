@@ -27,22 +27,28 @@ router.post('/', async(req, res) => {
     }
 });
 
-router.get('/edit', async(req, res) => {
+router.get('/edit/:id', async(req, res) => {
+    let userID = req.params.id;
+
     try {
+        const userInfo = await user.getUser(userID);
+
         const title = "Edit an account on RecipeShare";
-        res.render('page/registrationForm', { title: title });
+        res.render('page/updataUserInfo', { title: title, userInfo:userInfo });
     } catch (e) {
         res.status(404);
         res.render('page/error');
     }
+        
 });
 
-router.post('/edit', async(req, res) => {
+
+router.patch('/edit/:id', async(req, res) => {
     try {
-        let newUser = await user.createUser(req.body);
-        const title = "User Created!";
+        let newUser = await user.updateUser(req.params.id, req.body);
+        const title = "edit!";
         req.session.user = { username: `${newUser.firstName} ${newUser.lastName}`, userid: newUser._id };
-        res.redirect("/");
+        res.json({ success: true, id: req.session.user.userid });
     } catch (e) {
         console.log(e);
         res.status(404);
