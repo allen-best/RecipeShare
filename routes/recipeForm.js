@@ -11,7 +11,6 @@ router.get('/:type', async(req, res) => {
         } else if (req.params.type === 'edit') {
             title = "Edit a Recipe";
         }
-        console.log(req.query.postInfo)
         let postInfo = req.query.postInfo ? req.query.postInfo : "{}";
 
         res.render('page/recipeform', { title: title, type: req.params.type, postInfo: JSON.parse(postInfo), scriptFile: '<script src="/public/js/recipeForm.js"></script>' });
@@ -55,15 +54,15 @@ router.get('/:id', async(req, res) => {
         const userInfo = await posts.get(postID);
 
         const title = "Edit an account on RecipeShare";
-        res.render('page/editRecipeform', { title: title, userInfo:userInfo });
+        res.render('page/editRecipeform', { title: title, userInfo: userInfo });
     } catch (e) {
         res.status(404);
         res.render('page/error');
     }
-        
+
 });
 
-router.patch('/:id', async(req, res) => {
+router.put('/', async(req, res) => {
 
     try {
         console.log(req.body);

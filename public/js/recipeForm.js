@@ -18,8 +18,6 @@
             let create_type = $('#create-type').val();
             let postInfoId = $('#postInfoID').val();
 
-            //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-            const utc = new Date();
             if (!name || !ingredients || !(step1 || step2 || step3) || !type || !prepare_time || !cook_time || !servings) {
                 $('#errorMsg').text("Please input required parts!");
                 return;
@@ -29,7 +27,7 @@
                 return;
             }
 
-            //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+            // const utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
             const utc = new Date();
 
             if (create_type === "create") {
