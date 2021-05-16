@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
     $('#recipeForm').submit((event) => {
         try {
             console.log("here");
@@ -12,88 +12,98 @@
             let prepare_time = parseInt($('#prepare_time_input').val());
             let cook_time = parseInt($('#cook_time_input').val());
             let servings = parseInt($('#servings').val());
-            console.log(typeof (cook_time));
+            console.log(typeof(cook_time));
             console.log(servings);
 
+            let create_type = $('#create-type').val();
+            let postInfoId = $('#postInfoID').val();
+
+            //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+            const utc = new Date();
             if (!name || !ingredients || !(step1 || step2 || step3) || !type || !prepare_time || !cook_time || !servings) {
                 $('#errorMsg').text("Please input required parts!");
                 return;
             }
-            if (prepare_time <= 0 || cook_time <= 0 || servings <= 0){
+            if (prepare_time <= 0 || cook_time <= 0 || servings <= 0) {
                 $('#errorMsg').text("Time should over 0");
                 return;
             }
 
-                //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-                const utc = new Date();
+            //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+            const utc = new Date();
 
-            //post initial recipe request
-            let recipeRequest = {
-                method: 'POST',
-                url: '/recipe-form',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    type: type,
-                    postedDate: utc,
-                    name: name,
-                    servings: servings,
-                    cook_time: cook_time,
-                    prepare_time: prepare_time,
-                    ingredients: ingredients,
-                    steps: [step1, step2, step3],
-                })
-            };
+            if (create_type === "create") {
 
-            $.ajax(recipeRequest).then(function (responseMessage) {
-                let response = $(responseMessage);
-                console.log(response);
-                let status = response[0].status;
-                if (status === 'post_created') {
-                    window.location.href = '/';
-                } else {
-                    $('#errorMsg').text("Sorry, the post wasn't able to be created.");
-                }
-            });
+                //post initial recipe request
+                let recipeRequest = {
+                    method: 'POST',
+                    url: '/recipe-form',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        type: type,
+                        postedDate: utc,
+                        name: name,
+                        servings: servings,
+                        cook_time: cook_time,
+                        prepare_time: prepare_time,
+                        ingredients: ingredients,
+                        steps: [step1, step2, step3]
+                    })
+                };
 
-            //post updated recipe request
-            let recipeRequestUpdate = {
-                method: 'PUT',
-                url: '/recipe-form',
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    type: type,
-                    postedDate: utc,
-                    name: name,
-                    servings: servings,
-                    cook_time: cook_time,
-                    prepare_time: prepare_time,
-                    ingredients: ingredients,
-                    steps: [step1, step2, step3],
-                })
-            };
+                $.ajax(recipeRequest).then(function(responseMessage) {
+                    let response = $(responseMessage);
+                    console.log(response);
+                    let status = response[0].status;
+                    if (status === 'post_created') {
+                        window.location.href = '/';
+                    } else {
+                        $('#errorMsg').text("Sorry, the post wasn't able to be created.");
+                    }
+                });
+            } else if (create_type === "edit") {
 
-            $.ajax(recipeRequestUpdate).then(function (responseMessage) {
+                //post updated recipe request
+                let recipeRequestUpdate = {
+                    method: 'PUT',
+                    url: '/recipe-form',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        type: type,
+                        postedDate: utc,
+                        name: name,
+                        servings: servings,
+                        cook_time: cook_time,
+                        prepare_time: prepare_time,
+                        ingredients: ingredients,
+                        steps: [step1, step2, step3],
+                        postID: postInfoId
+                    })
+                };
 
-                // let formData = $(this).serialize();
-                // let formAction = $(this).attr('action');
-                // $.ajax({
-                //     url: formAction,
-                //     data: formData,
-                //     type: 'PUT',
-                //     success: function(data) {
+                $.ajax(recipeRequestUpdate).then(function(responseMessage) {
 
-                //     }
-                // })
+                    // let formData = $(this).serialize();
+                    // let formAction = $(this).attr('action');
+                    // $.ajax({
+                    //     url: formAction,
+                    //     data: formData,
+                    //     type: 'PUT',
+                    //     success: function(data) {
 
-                let response = $(responseMessage);
-                console.log(response);
-                let status = response[0].status;
-                if (status === 'post_created') {
-                    window.location.href = '/';
-                } else {
-                    $('#errorMsg').text("Sorry, the post wasn't able to be updated.");
-                }
-            });
+                    //     }
+                    // })
+
+                    let response = $(responseMessage);
+                    console.log(response);
+                    let status = response[0].status;
+                    if (status === 'post_created') {
+                        window.location.href = '/';
+                    } else {
+                        $('#errorMsg').text("Sorry, the post wasn't able to be updated.");
+                    }
+                });
+            }
 
         } catch (error) {
             console.log("Error: " + error)
