@@ -72,6 +72,10 @@ h6 {
     /* text-align: right; */
 }
 
+.welcome3 {
+    text-align: center;
+}
+
 ul {
     padding: 20px;
 }
@@ -208,4 +212,13 @@ a:hover {
 
 a:visited {
     color: sienna;
+}
+
+.error {
+    font-size: 14pt;
+    text-align: center;
+}
+
+.statusCode {
+    text-decoration: underline;
 }

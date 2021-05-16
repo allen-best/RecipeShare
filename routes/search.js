@@ -19,7 +19,7 @@ router.post('/', async(req, res) => {
     } catch (e) {
         console.log(e);
         res.sendStatus(404);
-        // res.render('page/error');
+        res.render('page/error');
     }
 });
 

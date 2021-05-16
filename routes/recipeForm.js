@@ -9,6 +9,7 @@ router.get('/', async(req, res) => {
         res.render('page/recipeform', { title: title, scriptFile: '<script src="/public/js/recipeForm.js"></script>' });
     } catch (e) {
         res.status(404);
+        res.render('page/error');
     }
 });
 
@@ -24,15 +25,17 @@ router.post('/', async(req, res) => {
 
         if (newPost) {
             res.json({ status: 'post_created' });
+            return;
         } else {
             res.json({ status: 'post_fail' });
+            return;
         }
 
     } catch (e) {
         console.log("Error: Post creation. " + e)
         res.json({ status: 'post_fail' });
-        res.status(404).send(e);
-        // res.render('page/error');
+        // return;
+        res.render('page/error');
     }
 });
 

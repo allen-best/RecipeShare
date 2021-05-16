@@ -4,7 +4,7 @@ const postData = require('../data/posts');
 const userData = require('../data/users');
 const ObjectId = require('mongodb').ObjectID;
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async(req, res) => {
     let userID = req.params.id;
     try {
         const userInfo = await userData.getUser(ObjectId(userID).toString());
@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
 
         // sort function newest to Older
         function compare(pro) {
-            return function (obj1, obj2) {
+            return function(obj1, obj2) {
                 var val1 = obj1[pro];
                 var val2 = obj2[pro];
                 if (val1 < val2) {
@@ -52,14 +52,11 @@ router.get('/:id', async (req, res) => {
         res.render('page/profile', { userInfo: userInfo, recipeList: recipeList, hasRecipe: hasRecipe });
     } catch (e) {
         console.log(e);
-        res.status(500).send();
-        // res.render('page/error');
+        res.status(500);
+        res.render('page/error');
     }
 
 });
-
-
-
 
 
 module.exports = router;

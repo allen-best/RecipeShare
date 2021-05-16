@@ -10,7 +10,7 @@ router.get('/', async(req, res) => {
         res.render('page/registrationForm', { title: title });
     } catch (e) {
         res.status(404);
-        // res.render('page/error');
+        res.render('page/error');
     }
 });
 
@@ -22,8 +22,8 @@ router.post('/', async(req, res) => {
         res.redirect("/");
     } catch (e) {
         console.log(e);
-        res.status(404).send(e);
-        // res.render('page/error');
+        res.status(404);
+        res.render('page/error');
     }
 });
 
@@ -37,6 +37,7 @@ router.get('/edit/:id', async(req, res) => {
         res.render('page/updataUserInfo', { title: title, userInfo:userInfo });
     } catch (e) {
         res.status(404);
+        res.render('page/error');
     }
         
 });
@@ -50,7 +51,8 @@ router.patch('/edit/:id', async(req, res) => {
         res.redirect("/");
     } catch (e) {
         console.log(e);
-        res.status(404).send(e);
+        res.status(404);
+        res.render('page/error');
     }
 });
 
