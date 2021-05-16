@@ -44,7 +44,7 @@ const constructorMethod = (app) => {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'like_fail' });
             res.status(404);
-            // res.render('page/error');
+            res.render('page/error');
         }
     });
 
@@ -64,7 +64,7 @@ const constructorMethod = (app) => {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'dislike_fail' });
             res.status(404);
-            // res.render('page/error');
+            res.render('page/error');
         }
     });
 
@@ -85,7 +85,7 @@ const constructorMethod = (app) => {
         } catch (e) {
             console.log("Error: Post creation. " + e)
             res.json({ status: 'comment_fail' });
-            res.status(404).send(e);
+            res.status(404);
             res.render('page/error');
         }
     });

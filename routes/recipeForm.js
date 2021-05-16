@@ -3,16 +3,17 @@ const router = express.Router();
 const data = require('../data');
 const posts = data.postData;
 
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
     try {
         const title = "Create a Recipe";
         res.render('page/recipeform', { title: title, scriptFile: '<script src="/public/js/recipeForm.js"></script>' });
     } catch (e) {
         res.status(404);
+        res.render('page/error');
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     try {
         console.log(req.body);
         //add author
@@ -33,8 +34,8 @@ router.post('/', async (req, res) => {
     } catch (e) {
         console.log("Error: Post creation. " + e)
         res.json({ status: 'post_fail' });
-        return;
-        // res.render('page/error');
+        // return;
+        res.render('page/error');
     }
 });
 

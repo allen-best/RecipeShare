@@ -12,14 +12,15 @@ router.get('/', async(req, res) => {
         res.render('page/login', { scriptFile: '<script src="/public/js/login.js"></script>' });
     } catch (e) {
         res.status(404);
-        // res.render('page/error');
+        res.render('page/error');
     }
 });
 router.post('/', async(req, res) => {
     if (!req.body.email || !req.body.password) {
         console.log('email or password not exist');
         res.sendStatus(404);
-        return;
+        // return;
+        res.render('page/error');
     }
     const email = xss(req.body.email).toLowerCase();
     const password = xss(req.body.password);
