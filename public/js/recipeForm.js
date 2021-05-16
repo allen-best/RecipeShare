@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
     $('#recipeForm').submit((event) => {
         try {
             console.log("here");
@@ -12,11 +12,20 @@
             let prepare_time = parseInt($('#prepare_time_input').val());
             let cook_time = parseInt($('#cook_time_input').val());
             let servings = parseInt($('#servings').val());
-            console.log(typeof(cook_time));
+            console.log(typeof (cook_time));
             console.log(servings);
 
-            //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-            const utc = new Date();
+            if (!name || !ingredients || !(step1 || step2 || step3) || !type || !prepare_time || !cook_time || !servings) {
+                $('#errorMsg').text("Please input required parts!");
+                return;
+            }
+            if (prepare_time <= 0 || cook_time <= 0 || servings <= 0){
+                $('#errorMsg').text("Time should over 0");
+                return;
+            }
+
+                //const utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+                const utc = new Date();
 
             //post initial recipe request
             let recipeRequest = {
@@ -35,7 +44,7 @@
                 })
             };
 
-            $.ajax(recipeRequest).then(function(responseMessage) {
+            $.ajax(recipeRequest).then(function (responseMessage) {
                 let response = $(responseMessage);
                 console.log(response);
                 let status = response[0].status;
@@ -63,7 +72,7 @@
                 })
             };
 
-            $.ajax(recipeRequestUpdate).then(function(responseMessage) {
+            $.ajax(recipeRequestUpdate).then(function (responseMessage) {
 
                 // let formData = $(this).serialize();
                 // let formAction = $(this).attr('action');

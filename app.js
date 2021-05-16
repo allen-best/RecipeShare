@@ -17,10 +17,10 @@ const handlebarsInstance = exphbs.create({
       return new Handlebars.SafeString(JSON.stringify(obj));
     },
     isnull: (value) => {
-        return value !== null;
+      return value !== null;
     },
     isempty: (value) => {
-        return value.length !== 0;
+      return value.length !== 0;
     }
   }
 });
@@ -121,6 +121,16 @@ app.use('/new-comment', (req, res, next) => {
     next();
   }
 });
+
+
+app.use('/register/edit', (req, res, next) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  } else {
+    next();
+  }
+});
+
 
 
 
