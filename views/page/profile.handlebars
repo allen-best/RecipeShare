@@ -1,13 +1,18 @@
 <header>
-  <div><a href="/">Recipe Share</a><a href="/profile/{{userInfo._id}}" style="float: right;">{{userInfo.email}}</a></div>
+  <div><a href="/">Recipe Share</a><a href="/profile/{{myid}}" style="float: right;">{{myname}}</a>
+  </div>
 
 </header>
 <h1>Profile</h1>
 <div style="height: 150px;">
   <img src="{{userInfo.image}}" alt="image" style="float:left;" height="100" width="100">
+  {{#if isME}}
+  <a id="recipeLink" href="/register/edit/{{userInfo._id}}">Edit Profile</a>
+  {{/if}}
+
   <div>
     <span>{{userInfo.firstName}} {{userInfo.lastName}}</span>
-    <a id="recipeLink" href="/register/edit/{{userInfo._id}}">Edit Profile</a>
+
     {{!-- <form action="/search" method="POST" class="new-post-form" style="float:right;">
       <button type="button" style="float:right;">Edit Profile</button>
     </form> --}}

@@ -49,7 +49,13 @@ router.get('/:id', async(req, res) => {
         if (recipeList.length > 0) {
             hasRecipe = true;
         }
-        res.render('page/profile', { userInfo: userInfo, recipeList: recipeList, hasRecipe: hasRecipe });
+        let isME = false;
+        if (req.session.user.userid === req.params.id){
+            isME = true;
+        }
+        const myid = req.session.user.userid;
+        const myname = req.session.user.username;
+        res.render('page/profile', { userInfo: userInfo, recipeList: recipeList, hasRecipe: hasRecipe, isME:isME, myid:myid, myname:myname });
     } catch (e) {
         console.log(e);
         res.status(500);

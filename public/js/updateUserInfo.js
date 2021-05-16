@@ -22,12 +22,9 @@
         };
         $.ajax(requestConfig).then(function (responseMessage) {
             console.log(responseMessage);
-            responseMessage.forEach(element => {
-                let name = element.show.name;
-                let url = element.show._links.self.href;
-                showList.append('<li><a href=' + url + '>' + name + '</a></li>');
-            });
-
+            if (responseMessage.success) {
+                window.location.replace("/profile/"+responseMessage.id);
+            }
         });
     });
 

@@ -48,7 +48,7 @@ router.patch('/edit/:id', async(req, res) => {
         let newUser = await user.updateUser(req.params.id, req.body);
         const title = "edit!";
         req.session.user = { username: `${newUser.firstName} ${newUser.lastName}`, userid: newUser._id };
-        res.redirect("/");
+        res.json({ success: true, id: req.session.user.userid });
     } catch (e) {
         console.log(e);
         res.status(404);
