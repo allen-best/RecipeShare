@@ -12,13 +12,13 @@ const errorThrowCreate = (body) => {
     }
 
     // check string inputs are strings
-    if (typeof (body.type) !== "string" || typeof (body.name) !== "string" || typeof (body.ingredients) !== "string" || typeof (body.author_name) !== "string" ||
+    if (typeof(body.type) !== "string" || typeof(body.name) !== "string" || typeof(body.ingredients) !== "string" || typeof(body.author_name) !== "string" ||
         body.type === "" || body.name === "" || body.ingredients === "" || body.author_name === "") {
         throw 'You must provide a valid string value for type and name.';
     }
 
     // check number inputs are numbers
-    if (typeof (body.cook_time) !== "number" || typeof (body.servings) !== "number" || typeof (body.prepare_time) !== "number") {
+    if (typeof(body.cook_time) !== "number" || typeof(body.servings) !== "number" || typeof(body.prepare_time) !== "number") {
         throw 'You must provide a number value for time and servings';
     }
 
@@ -37,10 +37,10 @@ const errorThrowCreate = (body) => {
 }
 
 const errorThrowID = (id) => {
-    if (id === undefined || typeof (id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: Invalid ID.'
+    if (id === undefined || typeof(id) !== "string" || id === "" || !ObjectId.isValid(id)) throw 'Error: Invalid ID.'
 }
 
-const createPost = async (body) => {
+const createPost = async(body) => {
     errorThrowCreate(body);
     errorThrowID(body.author_id);
 
@@ -80,10 +80,7 @@ const createPost = async (body) => {
     }
 
     const userCollection = await users();
-    const updatedInfo = await userCollection.updateOne(
-        { _id: ObjectId(updatedIdPost.author_id) },
-        { $push: { "createdPosts": newPostHistory } }
-    );
+    const updatedInfo = await userCollection.updateOne({ _id: ObjectId(updatedIdPost.author_id) }, { $push: { "createdPosts": newPostHistory } });
     if (updatedInfo.modifiedCount === 0) {
         throw 'Could not update user successfully';
     }
@@ -91,12 +88,12 @@ const createPost = async (body) => {
     return updatedIdPost;
 }
 
-const getAllPosts = async () => {
+const getAllPosts = async() => {
     const postCollection = await posts();
     return await postCollection.find({}).toArray();
 }
 
-const getPost = async (id) => {
+const getPost = async(id) => {
     errorThrowID(id);
 
     if (id === undefined) throw 'You must provide an ID';
@@ -110,7 +107,7 @@ const getPost = async (id) => {
     return updatedIdPost;
 }
 
-const removePost = async (id) => {
+const removePost = async(id) => {
     errorThrowID(id);
 
     let findPost = {
@@ -127,17 +124,22 @@ const removePost = async (id) => {
     return { postId: id, deleted: true };
 }
 
-const updatePost = async (id, body) => {
+const updatePost = async(id, body) => {
     errorThrowID(id);
     errorThrowCreate(body);
 
     const postCollection = await posts();
     const updatedPost = {
-        title: body.title,
-        author: body.author,
-        genre: body.genre,
-        datePublished: body.datePublished,
-        summary: body.summary
+        type: body.type,
+        postedDate: Date.parse(body.postedDate),
+        name: body.name,
+        author_id: ObjectId(body.author_id),
+        author_name: body.author_name,
+        servings: body.servings,
+        prepare_time: body.prepare_time,
+        cook_time: body.cook_time,
+        ingredients: body.ingredients,
+        steps: body.steps
     };
 
     const updatedInfo = await postCollection.updateOne({ _id: ObjectId(id) }, { $set: updatedPost });
@@ -149,7 +151,7 @@ const updatePost = async (id, body) => {
     return updatedIdPost;
 }
 
-const updatePartialPost = async (id, body) => {
+const updatePartialPost = async(id, body) => {
     errorThrowID(id);
 
     const postCollection = await posts();
@@ -163,7 +165,7 @@ const updatePartialPost = async (id, body) => {
     return updatedIdPost;
 }
 
-const postForHomepage = async () => {
+const postForHomepage = async() => {
     let recentPost = await getRecentPost();
     let popularPost = await getPopularPost();
     return {
@@ -173,7 +175,7 @@ const postForHomepage = async () => {
 
 }
 
-const getRecentPost = async () => {
+const getRecentPost = async() => {
     let posts = await getAllPosts();
 
     function sortByDate(a, b) {
@@ -195,7 +197,7 @@ const getRecentPost = async () => {
     return result;
 }
 
-const getPopularPost = async () => {
+const getPopularPost = async() => {
     let posts = await getAllPosts();
 
     function sortByLike(a, b) {
@@ -213,11 +215,11 @@ const getPopularPost = async () => {
 }
 
 
-const searchPost = async (keyword, type) => {
+const searchPost = async(keyword, type) => {
     if (!keyword || !type) {
         throw 'You must provide a value for all inputs.';
     }
-    if (typeof (keyword) !== "string" || typeof (type) !== "string") {
+    if (typeof(keyword) !== "string" || typeof(type) !== "string") {
         throw 'You must provide a valid string value for keyword and type.';
     }
     const postCollection = await posts();

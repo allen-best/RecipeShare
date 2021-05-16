@@ -4,9 +4,11 @@
         <div class="col-sm-12">
             <div class="form-container">
                 <form id="recipeForm">
+                    <input id="create-type" value="{{type}}" hidden></input>
+                    <input id="postInfoID" value="{{postInfo._id}}" hidden></input>
                     <div class="form-group">
                         <label id="formLabel" for="name_input">Name:</label>
-                        <input type="text" class="form-control" id="name_input" name="name_input" placeholder="Name of Recipe">
+                        <input type="text" class="form-control" id="name_input" name="name_input" value="{{postInfo.name}}">
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="type_input" id="foodOption" value="food">
@@ -18,27 +20,27 @@
                     </div>
                     <div class="form-group">
                         <label id="formLabel" for="ingedients_input">Ingredients:</label>
-                        <textarea class="form-control" id="ingedients_input" rows="3"></textarea>
+                        <textarea class="form-control" id="ingedients_input" rows="3">{{postInfo.ingredients}}</textarea>
                     </div>
                     <div class="form-group">
                         <label id="formLabel" for="step_1_input">Step 1:</label>
-                        <textarea class="form-control" id="step_1_input" rows="2"></textarea>
+                        <textarea class="form-control" id="step_1_input" rows="2">{{postInfo.steps.[0]}}</textarea>
                     </div>
                     <div class="form-group">
                         <label id="formLabel" for="step_2_input">Step 2:</label>
-                        <textarea class="form-control" id="step_2_input" rows="2"></textarea>
+                        <textarea class="form-control" id="step_2_input" rows="2">{{postInfo.steps.[1]}}</textarea>
                     </div>
                     <div class="form-group">
                         <label id="formLabel" for="step_3_input">Step 3:</label>
-                        <textarea class="form-control" id="step_3_input" rows="2"></textarea>
+                        <textarea class="form-control" id="step_3_input" rows="2">{{postInfo.steps.[2]}}</textarea>
                     </div>
                     <div class="form-group">
                         <label id="formLabel" for="search_term">Prepare time(minutes):</label>
-                        <input type="number" class="form-control" id="prepare_time_input" name="cook_time_input" placeholder="5">
+                        <input type="number" class="form-control" id="prepare_time_input" name="cprepare_time_input" value="{{postInfo.prepare_time}}">
                     </div>
                     <div class="form-group">
                         <label id="formLabel" for="cook_time_input">Cook time(minutes):</label>
-                        <input type="number" class="form-control" id="cook_time_input" name="cook_time_input" placeholder="5">
+                        <input type="number" class="form-control" id="cook_time_input" name="cook_time_input" value="{{postInfo.cook_time}}">
                     </div>
                     <div class="form-group">
                         <label for="servings">Servings:</label>
