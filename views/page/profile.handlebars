@@ -1,5 +1,5 @@
 <header>
-  <div><a href="/">Recipe Share</a><a href="/profile/{{myid}}" style="float: right;">{{myname}}</a>
+  <div><a href="/">Recipe Share</a><a href="/profile/{{myid}}" style="float: right;" id="myLink" data-me="{{myid}}">{{myname}}</a>
   </div>
 
 </header>
@@ -7,7 +7,7 @@
 <div style="height: 150px;">
   <img src="{{userInfo.image}}" alt="image" style="float:left;" height="100" width="100">
   {{#if isME}}
-  <a id="recipeLink" href="/register/edit/{{userInfo._id}}">Edit Profile</a>
+  <a id="recipeLink" href="/register/edit/{{userInfo._id}}" data-me="{{myid}}">Edit Profile</a>
   {{/if}}
 
   <div>
@@ -35,7 +35,7 @@
         <button type="button" style="float:right;">Edit</button>
       </form> --}}
       <p>{{this.ingredients}}</p>
-      <a id="recipeLink" href="/register/edit/{{this._id}}" hidden>Edit</a>
+      <a id="editrecipeLink" href="/recipe-form/{{this._id}}" hidden>Edit</a>
     </div>
 
   </div>
